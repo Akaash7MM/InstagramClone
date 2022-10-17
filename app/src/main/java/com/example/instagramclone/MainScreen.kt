@@ -31,6 +31,7 @@ class MainScreen : Fragment() {
         )
 
         val postsAdapter = PostsAdapter(postsList)
+
         binding.rvPosts.apply {
             adapter = postsAdapter
             layoutManager = LinearLayoutManager(this@MainScreen.context)
