@@ -3,6 +3,7 @@ package com.example.instagramclone
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,14 +24,29 @@ class MainScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val postsList = mutableListOf(
-            Post("Dummy", R.drawable.sampleimg),
-            Post("Dummy", R.drawable.sampleimg),
-            Post("Dummy", R.drawable.sampleimg),
-            Post("Dummy", R.drawable.sampleimg),
-            Post("Dummy", R.drawable.sampleimg)
+            Post(1),
+            Post(2),
+            Post(3),
+            Post(4),
+            Post(5),
+            Post(6),
+            Post(7),
+            Post(8),
+            Post(9),
+            Post(10)
+        )
+        val postsAdapter = PostsAdapterListAdapter()
+        postsAdapter.submitList(postsList)
+
+
+        binding.Btn1.setOnClickListener(
+            OnClickListener {
+                val changedList = postsAdapter.currentList.toMutableList()
+                changedList.removeFirst()
+                postsAdapter.submitList(changedList)
+            }
         )
 
-        val postsAdapter = PostsAdapter(postsList)
         binding.rvPosts.apply {
             adapter = postsAdapter
             layoutManager = LinearLayoutManager(this@MainScreen.context)

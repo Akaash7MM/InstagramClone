@@ -2,13 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:elevation="20dp"
+    android:padding="20dp" >
 
-    <ImageView
-        android:id="@+id/imgView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:contentDescription="Nature"
-        android:padding="20dp" />
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NatGeo"
+            android:textSize="16dp"
+            android:padding="8dp"/>
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:contentDescription="Nature"
+            />
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:weightSum="8"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:src="@drawable/ic_heart_foreground"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@drawable/ic_solid_comment_foreground"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@drawable/ic_share_foreground"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/imgBtn1"
+            android:src="@drawable/ic_save_foreground"
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
 
 </LinearLayout>
+
