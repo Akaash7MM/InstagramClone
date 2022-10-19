@@ -1,6 +1,6 @@
 package com.example.domain.model
 
 data class Post(
-    val contentDesc: String,
-    val image: Int
+    val id: Int,
+    val contentDesc: String = "Dummy"
 )

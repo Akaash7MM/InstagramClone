@@ -1,9 +1,12 @@
 package com.example.instagramclone
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.domain.model.Post
+import com.example.instagramclone.Constants.getUrl
 import com.example.instagramclone.databinding.PostItemBinding
 
 class PostsAdapter(
@@ -18,7 +21,21 @@ class PostsAdapter(
     }
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
-        holder.binding.imgView.setImageResource(postList.get(position).image)
+        val post = postList.get(holder.bindingAdapterPosition)
+        holder.itemView.apply {
+            Glide.with(this).load(getUrl(post.id)).into(holder.binding.imgView)
+        }
+        holder.binding.imgBtn1.setOnClickListener(
+            View.OnClickListener {
+                onItemOnClickListener?.let { it(post) }
+            }
+        )
+    }
+
+    private var onItemOnClickListener: ((Post) -> Unit)? = null
+
+    fun setOnItemClickListener(onClick: (Post) -> Unit) {
+        onItemOnClickListener = onClick
     }
 
     override fun getItemCount(): Int {

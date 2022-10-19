@@ -54,6 +54,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content" />
         <ImageView
+            android:id="@+id/imgBtn1"
             android:src="@drawable/ic_save_foreground"
             android:layout_width="0dp"
             android:layout_weight="9"
