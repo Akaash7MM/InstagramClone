@@ -23,14 +23,20 @@ class MainScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val postsList = mutableListOf(
-            Post("Dummy", R.drawable.sampleimg),
-            Post("Dummy", R.drawable.sampleimg),
-            Post("Dummy", R.drawable.sampleimg),
-            Post("Dummy", R.drawable.sampleimg),
-            Post("Dummy", R.drawable.sampleimg)
+            Post(1),
+            Post(2),
+            Post(3),
+            Post(4),
+            Post(5),
+            Post(6),
+            Post(7),
+            Post(8),
+            Post(9)
         )
 
-        val postsAdapter = PostsAdapter(postsList)
+        val postsAdapter = PostsAdapter()
+        postsAdapter.submitList(postsList)
+
         binding.rvPosts.apply {
             adapter = postsAdapter
             layoutManager = LinearLayoutManager(this@MainScreen.context)
