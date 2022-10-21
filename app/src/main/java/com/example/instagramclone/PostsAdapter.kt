@@ -1,6 +1,5 @@
 package com.example.instagramclone
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -23,13 +22,9 @@ class PostsAdapter : ListAdapter<Post, PostsViewHolder>(myDiffUtil()) {
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val post = currentList.get(holder.bindingAdapterPosition)
-        holder.binding.imgView.apply {
-            Glide.with(this).load(getUrl(post.id)).into(this)
+        holder.binding.postImage.apply {
+            Glide.with(this).load(getUrl(post.id)).override(1080, 1080).into(this)
         }
-    }
-
-    override fun getItemCount(): Int {
-        return currentList.count()
     }
 
     class myDiffUtil : DiffUtil.ItemCallback<Post>() {
