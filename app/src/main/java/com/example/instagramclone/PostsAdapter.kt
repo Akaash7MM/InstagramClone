@@ -23,7 +23,6 @@ class PostsAdapter : ListAdapter<Post, PostsViewHolder>(myDiffUtil()) {
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val post = currentList.get(holder.bindingAdapterPosition)
-
         holder.binding.imgView.apply {
             Glide.with(this).load(getUrl(post.id)).into(this)
         }
