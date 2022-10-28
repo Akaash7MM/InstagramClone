@@ -1,4 +1,4 @@
-package com.example.instagramclone
+package com.example.instagramclone.Adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.domain.model.Post
-import com.example.instagramclone.StoriesAdapter.StoriesViewHolder
+import com.example.instagramclone.Adapters.StoriesAdapter.StoriesViewHolder
+import com.example.instagramclone.Constants
 import com.example.instagramclone.databinding.StoryItemBinding
 
 class StoriesAdapter : ListAdapter<Post, StoriesViewHolder>(StoryDiffUtil()) {
@@ -22,7 +23,7 @@ class StoriesAdapter : ListAdapter<Post, StoriesViewHolder>(StoryDiffUtil()) {
     override fun onBindViewHolder(holder: StoriesViewHolder, position: Int) {
         val post = currentList.get(holder.bindingAdapterPosition)
         holder.binding.storyImage.apply {
-            Glide.with(this).load(Constants.getUrl(post.id)).override(125,125).into(this)
+            Glide.with(this).load(Constants.getUrl(post.id)).override(175, 175).into(this)
         }
     }
 
