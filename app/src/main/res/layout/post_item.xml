@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="20dp"
@@ -8,30 +9,66 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bar_height"
+        android:layout_height="35dp"
         android:background="@android:color/white"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="natgeo"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:drawablePadding="5dp"
-            android:textAlignment="textStart"
-            app:drawableStartCompat="@drawable/story_image" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="280dp"
-            android:src="@drawable/vertical_ellipsis"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="5dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profileImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toBottomOf="@id/storyborder"
+                app:layout_constraintEnd_toEndOf="@id/storyborder"
+                app:layout_constraintStart_toStartOf="@+id/storyborder"
+                app:layout_constraintTop_toTopOf="@+id/storyborder"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+
+            <ImageView
+                android:id="@+id/storyborder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/rainbowborder"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/topUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                android:text="natgeo"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/storyborder"
+                app:layout_constraintStart_toEndOf="@+id/storyborder"
+                app:layout_constraintTop_toTopOf="@id/storyborder"
+                />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="5dp"
+                android:src="@drawable/vertical_ellipsis"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
     <ImageView
         android:id="@+id/postImage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="Nature"
         />
@@ -47,49 +84,52 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/likeheart"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+
                 android:adjustViewBounds="true"
-                android:layout_centerHorizontal="true"
                 android:src="@drawable/heart"/>
             <ImageView
                 android:id="@+id/likeheartFilled"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
                 android:adjustViewBounds="true"
-                android:layout_centerHorizontal="true"
                 android:src="@drawable/heartfilled"
                 android:alpha="0"/>
+            <ImageView
+                android:id="@+id/comment"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_marginStart="20dp"
+                android:layout_toRightOf="@id/likeheart"
+                android:src="@drawable/comment" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_marginStart="20dp"
+
+                android:layout_toRightOf="@id/comment"
+                android:src="@drawable/share" />
+
+            <ImageView
+                android:id="@+id/imgBtn1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/tagg" />
         </RelativeLayout>
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:layout_weight="1"
-            android:src="@drawable/comment" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:layout_weight="1"
-            android:src="@drawable/share" />
-
-        <ImageView
-            android:id="@+id/imgBtn1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="155dp"
-            android:layout_weight="4"
-            android:adjustViewBounds="true"
-            android:src="@drawable/tagg" />
 
 
     </LinearLayout>

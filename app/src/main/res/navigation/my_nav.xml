@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainScreen"
-        android:name="com.example.instagramclone.Fragments.MainScreen"
+        android:name="com.example.instagramclone.fragments.MainScreen"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" >
         <action
@@ -18,13 +18,16 @@
     </fragment>
     <fragment
         android:id="@+id/searchScreen"
-        android:name="com.example.instagramclone.Fragments.SearchScreen"
+        android:name="com.example.instagramclone.fragments.SearchScreen"
         android:label="fragment_search_screen"
         tools:layout="@layout/fragment_search_screen" >
+        <argument
+            android:name="numbers"
+            app:argType="integer"
+            android:defaultValue="222" />
         <action
-            android:id="@+id/action_searchScreen_to_mainScreen"
+            android:id="@+id/action_searchScreen_to_mainScreen2"
             app:destination="@id/mainScreen"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right" />
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 </navigation>
