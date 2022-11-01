@@ -63,5 +63,3 @@ class MainScreen() : Fragment() {
         }
     }
 }
-
-

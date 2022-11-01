@@ -42,12 +42,17 @@ class PostsAdapter(
         when (holder) {
             is PostViewHolder.AdPost -> {
                 holder.binding.postImage.apply {
-
-                    Glide.with(this).load(post.imgUrlNormal).into(this)
+                    Glide.with(this).load(post.imgUrlNormal).override(300).into(this)
                 }
 
                 holder.binding.likeheartFilled.setOnClickListener {
                     setAnimationToObject(it)
+                }
+                holder.binding.postImage.setOnClickListener() {
+                    onImageClick()
+                }
+                holder.binding.postImage.setOnClickListener() {
+                    onImageClick()
                 }
                 holder.binding.postImage.setOnClickListener() {
                     onImageClick()
