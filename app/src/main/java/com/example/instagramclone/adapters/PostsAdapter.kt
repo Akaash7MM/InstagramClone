@@ -1,4 +1,4 @@
-package com.example.instagramclone.Adapters
+package com.example.instagramclone.adapters
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -6,16 +6,13 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
-import android.view.View.inflate
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import androidx.core.text.bold
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.domain.model.Post
-import com.example.instagramclone.Constants.getUrl
+import com.example.domain.entities.Post
 import com.example.instagramclone.R
 import com.example.instagramclone.databinding.AdItemBinding
 import com.example.instagramclone.databinding.PostItemBinding
@@ -26,8 +23,6 @@ class PostsAdapter(
 
     private lateinit var valueAnimator: ValueAnimator
     private lateinit var objectAnimator: ObjectAnimator
-
-//    inner class PostsViewHolder(val binding: PostItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return when (viewType) {
@@ -47,7 +42,8 @@ class PostsAdapter(
         when (holder) {
             is PostViewHolder.AdPost -> {
                 holder.binding.postImage.apply {
-                    Glide.with(this).load(getUrl(post.id)).override(1080, 1080).into(this)
+
+                    Glide.with(this).load(post.imgUrlNormal).into(this)
                 }
 
                 holder.binding.likeheartFilled.setOnClickListener {
@@ -66,12 +62,20 @@ class PostsAdapter(
             }
             is PostViewHolder.UserPost -> {
                 holder.binding.postImage.apply {
-                    Glide.with(this).load(getUrl(post.id)).override(1080, 1080).into(this)
+                    Glide.with(this).load(post.imgUrlOriginal).placeholder(R.drawable.testplaceholder2).into(this)
+
+                    setOnClickListener {
+                        onImageClick()
+                    }
+                }
+                holder.binding.profileImage.apply {
+                    Glide.with(this).load(post.imgUrlNormal).centerCrop().into(this)
                 }
 
                 holder.binding.likeheartFilled.setOnClickListener {
                     setAnimationToObject(it)
                 }
+                holder.binding.topUsername.text = post.userName
 
                 val desc = SpannableStringBuilder()
                     .bold { append(post.userName) }

@@ -1,4 +1,4 @@
-package com.example.instagramclone.Adapters
+package com.example.instagramclone.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
