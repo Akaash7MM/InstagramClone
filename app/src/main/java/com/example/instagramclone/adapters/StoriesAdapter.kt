@@ -21,9 +21,9 @@ class StoriesAdapter : ListAdapter<Post, StoriesViewHolder>(StoryDiffUtil()) {
 
     override fun onBindViewHolder(holder: StoriesViewHolder, position: Int) {
         val post = currentList.get(holder.bindingAdapterPosition)
-        holder.binding.storyImage.apply {
-            Glide.with(this).load(post.imgUrlNormal).centerCrop().into(this)
-        }
+//        holder.binding.storyImage.apply {
+//            Glide.with(this).load(post.imgUrlNormal).centerCrop().into(this)
+//        }
         holder.binding.storyUsername.text = post.userName
     }
 

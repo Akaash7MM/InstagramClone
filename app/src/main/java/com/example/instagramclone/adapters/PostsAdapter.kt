@@ -61,15 +61,15 @@ class PostsAdapter(
             }
             is PostViewHolder.UserPost -> {
                 holder.binding.postImage.apply {
-                    Glide.with(this).load(post.imgUrlOriginal).placeholder(R.drawable.testplaceholder2).into(this)
+                    Glide.with(this).load(post.imgUrlNormal).override(715).into(this)
 
                     setOnClickListener {
                         onImageClick()
                     }
                 }
-                holder.binding.profileImage.apply {
-                    Glide.with(this).load(post.imgUrlNormal).centerCrop().into(this)
-                }
+//                holder.binding.profileImage.apply {
+//                    Glide.with(this).load(post.imgUrlNormal).centerCrop().into(this)
+//                }
 
                 holder.binding.likeheartFilled.setOnClickListener {
                     setAnimationToObject(it)

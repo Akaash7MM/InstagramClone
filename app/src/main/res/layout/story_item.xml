@@ -7,25 +7,24 @@
     android:paddingHorizontal="5dp"
     android:paddingBottom="5dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/storyImage"
         android:layout_width="63dp"
         android:layout_height="63dp"
-        app:layout_constraintBottom_toBottomOf="@id/storyborder"
-        app:layout_constraintStart_toStartOf="@+id/storyborder"
-        app:layout_constraintTop_toTopOf="@id/storyborder"
-        app:layout_constraintEnd_toEndOf="@id/storyborder"
-        app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
         android:id="@+id/storyborder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/rainbowborder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="@+id/storyImage"
+        app:layout_constraintStart_toStartOf="@id/storyImage"
+        app:layout_constraintTop_toTopOf="@id/storyImage"
+        app:layout_constraintEnd_toEndOf="@id/storyImage"/>
 
     <TextView
         android:id="@+id/storyUsername"

@@ -50,6 +50,7 @@ class MainScreen() : Fragment() {
             }
         }
 
+
         binding.rvStories.apply {
             adapter = storiesAdapter
             layoutManager = LinearLayoutManager(this@MainScreen.context, RecyclerView.HORIZONTAL, false)

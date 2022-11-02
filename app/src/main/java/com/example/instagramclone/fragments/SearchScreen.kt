@@ -30,8 +30,7 @@ class SearchScreen : Fragment() {
         binding.adText.text = args.numbers.toString()
 
         binding.adText.setOnClickListener() {
-            Navigation.findNavController(binding.root).navigate(R.id.loginActivity)
-            Log.d("LoginActivity","I'm Here")
+//            Navigation.findNavController(binding.root).navigate(R.id.action_searchScreen_to_loginFragment)
         }
     }
 }

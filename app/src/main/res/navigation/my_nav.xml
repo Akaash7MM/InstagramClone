@@ -3,39 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/mainScreen">
+    app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/mainScreen"
-        android:name="com.example.instagramclone.fragments.main_screen.MainScreen"
-        android:label="fragment_main_screen"
-        tools:layout="@layout/fragment_main_screen" >
+        android:id="@+id/loginFragment"
+        android:name="com.example.instagramclone.fragments.LoginFragment"
+        android:label="LoginFragment" >
         <action
-            android:id="@+id/action_mainScreen_to_searchScreen"
-            app:destination="@id/searchScreen"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left" />
+            android:id="@+id/action_loginFragment_to_LoggedIn"
+            app:destination="@id/LoggedIn" />
     </fragment>
-    <fragment
-        android:id="@+id/searchScreen"
-        android:name="com.example.instagramclone.fragments.SearchScreen"
-        android:label="fragment_search_screen"
-        tools:layout="@layout/fragment_search_screen" >
-        <argument
-            android:name="numbers"
-            app:argType="integer"
-            android:defaultValue="222" />
-        <action
-            android:id="@+id/action_searchScreen_to_mainScreen2"
-            app:destination="@id/mainScreen"
-            app:popExitAnim="@android:anim/slide_out_right" />
-    </fragment>
-
-    <activity
-        android:id="@+id/loginActivity"
-        android:name="com.example.instagramclone.activities.LoginActivity"
-        android:label="LoginActivity"
-        app:action="android.intent.action.VIEW"/>
+    <navigation
+        android:id="@+id/LoggedIn"
+        app:startDestination="@id/mainScreen">
+        <fragment
+            android:id="@+id/mainScreen"
+            android:name="com.example.instagramclone.fragments.main_screen.MainScreen"
+            android:label="fragment_main_screen"
+            tools:layout="@layout/fragment_main_screen">
+            <action
+                android:id="@+id/action_mainScreen_to_searchScreen"
+                app:destination="@id/searchScreen"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left" />
+        </fragment>
+        <fragment
+            android:id="@+id/searchScreen"
+            android:name="com.example.instagramclone.fragments.SearchScreen"
+            android:label="fragment_search_screen"
+            tools:layout="@layout/fragment_search_screen">
+            <argument
+                android:name="numbers"
+                android:defaultValue="222"
+                app:argType="integer" />
+            <action
+                android:id="@+id/action_searchScreen_to_mainScreen2"
+                app:destination="@id/mainScreen"
+                app:popExitAnim="@android:anim/slide_out_right" />
+        </fragment>
+    </navigation>
 
 
 </navigation>
