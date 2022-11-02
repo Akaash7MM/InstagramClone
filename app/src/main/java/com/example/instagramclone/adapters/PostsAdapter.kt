@@ -42,7 +42,6 @@ class PostsAdapter(
         when (holder) {
             is PostViewHolder.AdPost -> {
                 holder.binding.postImage.apply {
-
                     Glide.with(this).load(post.imgUrlNormal).into(this)
                 }
 

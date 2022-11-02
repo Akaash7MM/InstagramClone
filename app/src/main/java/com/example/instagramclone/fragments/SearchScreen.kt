@@ -1,6 +1,7 @@
 package com.example.instagramclone.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +30,8 @@ class SearchScreen : Fragment() {
         binding.adText.text = args.numbers.toString()
 
         binding.adText.setOnClickListener() {
-            Navigation.findNavController(binding.root).popBackStack()
+            Navigation.findNavController(binding.root).navigate(R.id.loginActivity)
+            Log.d("LoginActivity","I'm Here")
         }
     }
 }

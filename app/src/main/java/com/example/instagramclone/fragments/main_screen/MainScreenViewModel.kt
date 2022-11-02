@@ -1,6 +1,5 @@
-package com.example.instagramclone.fragments
+package com.example.instagramclone.fragments.main_screen
 
-import MainScreenState
 import androidx.lifecycle.ViewModel
 import com.example.domain.usecases.GetPostUseCase
 import com.example.domain.util.Resource

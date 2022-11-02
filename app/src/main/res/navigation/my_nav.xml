@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainScreen"
-        android:name="com.example.instagramclone.fragments.MainScreen"
+        android:name="com.example.instagramclone.fragments.main_screen.MainScreen"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" >
         <action
@@ -30,4 +30,12 @@
             app:destination="@id/mainScreen"
             app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
+
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.instagramclone.activities.LoginActivity"
+        android:label="LoginActivity"
+        app:action="android.intent.action.VIEW"/>
+
+
 </navigation>

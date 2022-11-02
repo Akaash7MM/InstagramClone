@@ -1,6 +1,5 @@
-package com.example.instagramclone.fragments
+package com.example.instagramclone.fragments.main_screen
 
-import MainScreenState
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +43,6 @@ class MainScreen() : Fragment() {
                     storiesAdapter.submitList(result.postList)
                 }
                 is MainScreenState.Failure -> {
-
                 }
                 is MainScreenState.Loading -> {
                 }
@@ -63,5 +61,3 @@ class MainScreen() : Fragment() {
         }
     }
 }
-
-
