@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.domain.entities.Post
 import com.example.instagramclone.adapters.StoriesAdapter.StoriesViewHolder
 import com.example.instagramclone.databinding.StoryItemBinding
@@ -21,9 +22,11 @@ class StoriesAdapter : ListAdapter<Post, StoriesViewHolder>(StoryDiffUtil()) {
 
     override fun onBindViewHolder(holder: StoriesViewHolder, position: Int) {
         val post = currentList.get(holder.bindingAdapterPosition)
-//        holder.binding.storyImage.apply {
-//            Glide.with(this).load(post.imgUrlNormal).centerCrop().into(this)
-//        }
+        holder.binding.storyImage.apply {
+            load(post.imgUrlsmall) {
+                transformations(CircleCropTransformation())
+            }
+        }
         holder.binding.storyUsername.text = post.userName
     }
 

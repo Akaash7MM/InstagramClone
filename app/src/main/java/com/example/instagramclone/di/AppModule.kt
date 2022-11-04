@@ -1,8 +1,9 @@
 package com.example.instagramclone.di
 
+import android.util.Log
+import com.example.data.BuildConfig
 import com.example.data.PostApi
 import com.example.data.repository.PostRepositoryImpl
-import com.example.data.util.AuthInterceptor
 import com.example.data.util.Constants
 import com.example.domain.repository.PostRepository
 import com.example.domain.usecases.GetPostUseCase
@@ -10,10 +11,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Qualifier
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+import kotlin.annotation.AnnotationRetention.BINARY
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -29,10 +33,37 @@ class AppModule {
             .build()
     }
 
+    @Auth
     @Provides
     @Singleton
-    fun providesOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
-        return OkHttpClient().newBuilder().addInterceptor(authInterceptor).build()
+    fun providesAuthInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val request = chain.request().newBuilder()
+            request.addHeader("Authorization", Constants.API_KEY)
+            chain.proceed(request.build())
+        }
+    }
+
+    @Logg
+    @Provides
+    @Singleton
+    fun providesLoggingInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val request = chain.request()
+            if (BuildConfig.DEBUG) {
+                Log.d("Logging", request.url.toString())
+            }
+            chain.proceed(request)
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun providesOkHttpClient(@Auth authInterceptor: Interceptor, @Logg logInterceptor: Interceptor): OkHttpClient {
+        return OkHttpClient().newBuilder()
+            .addInterceptor(authInterceptor)
+            .addInterceptor(logInterceptor)
+            .build()
     }
 
     @Provides
@@ -53,3 +84,12 @@ class AppModule {
         return GetPostUseCase(repository)
     }
 }
+
+@Qualifier
+@Retention(BINARY)
+annotation class Auth
+
+@Qualifier
+@Retention(BINARY)
+annotation class Logg
+

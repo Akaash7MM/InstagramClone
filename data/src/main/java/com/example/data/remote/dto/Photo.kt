@@ -21,6 +21,8 @@ fun Photo.toPost(): Post {
         imgUrlNormal = src.large2x,
         imgUrlsmall = src.tiny,
         contentDesc = alt,
-        userName = photographer
+        userName = photographer,
+        width = width,
+        height = height
     )
 }
