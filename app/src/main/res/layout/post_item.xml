@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
+        android:layout_marginBottom="10dp"
         android:background="@android:color/white"
         android:orientation="horizontal">
 
@@ -18,16 +19,15 @@
             android:layout_height="match_parent"
             android:paddingHorizontal="5dp">
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <ImageView
                 android:id="@+id/profileImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                app:layout_constraintBottom_toBottomOf="@id/storyborder"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/storyborder"
-                app:layout_constraintStart_toStartOf="@+id/storyborder"
-                app:layout_constraintTop_toTopOf="@+id/storyborder"
-                app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <ImageView
                 android:id="@+id/storyborder"
@@ -35,9 +35,10 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/rainbowborder"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+                app:layout_constraintTop_toTopOf="@+id/profileImage"
+                app:layout_constraintEnd_toEndOf="@id/profileImage"
+                />
 
             <TextView
                 android:id="@+id/topUsername"
@@ -69,7 +70,7 @@
     <ImageView
         android:id="@+id/postImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="600dp"
         android:contentDescription="Nature"
         />
 

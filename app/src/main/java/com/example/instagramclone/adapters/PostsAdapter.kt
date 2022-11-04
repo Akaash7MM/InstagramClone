@@ -11,7 +11,8 @@ import android.view.animation.OvershootInterpolator
 import androidx.core.text.bold
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.bumptech.glide.Glide
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.domain.entities.Post
 import com.example.instagramclone.R
 import com.example.instagramclone.databinding.AdItemBinding
@@ -42,8 +43,11 @@ class PostsAdapter(
         when (holder) {
             is PostViewHolder.AdPost -> {
                 holder.binding.postImage.apply {
+                    load(post.imgUrlNormal)
 
-                    Glide.with(this).load(post.imgUrlNormal).into(this)
+                    setOnClickListener {
+                        onImageClick()
+                    }
                 }
 
                 holder.binding.likeheartFilled.setOnClickListener {
@@ -62,14 +66,16 @@ class PostsAdapter(
             }
             is PostViewHolder.UserPost -> {
                 holder.binding.postImage.apply {
-                    Glide.with(this).load(post.imgUrlOriginal).placeholder(R.drawable.testplaceholder2).into(this)
+                    load(post.imgUrlNormal)
 
                     setOnClickListener {
                         onImageClick()
                     }
                 }
                 holder.binding.profileImage.apply {
-                    Glide.with(this).load(post.imgUrlNormal).centerCrop().into(this)
+                    load(post.imgUrlsmall) {
+                        transformations(CircleCropTransformation())
+                    }
                 }
 
                 holder.binding.likeheartFilled.setOnClickListener {
