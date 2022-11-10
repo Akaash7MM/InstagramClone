@@ -3,6 +3,7 @@ package com.example.instagramclone
 import android.os.Bundle
 import android.transition.Slide
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -29,40 +30,17 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            TransitionManager.beginDelayedTransition(binding.root, Slide(Gravity.END))
             when (destination.id) {
-                R.id.mainScreen -> {
-                    binding.bottomNavigationView.visibility = View.VISIBLE
+                R.id.loginFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.initialFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
                 }
                 else -> {
-                    binding.bottomNavigationView.visibility = View.GONE
+                    binding.bottomNavigationView.visibility = View.VISIBLE
                 }
             }
         }
-
-//        binding.bottomNavigationView.visibility = View.GONE
-
-//        supportFragmentManager.registerFragmentLifecycleCallbacks(
-//            object : FragmentManager.FragmentLifecycleCallbacks() {
-//                override fun onFragmentCreated(
-//                    fm: FragmentManager,
-//                    f: Fragment,
-//                    savedInstanceState: Bundle?
-//                ) {
-//                    TransitionManager.beginDelayedTransition(binding.root, Slide(Gravity.END))
-//                    when (f) {
-//                        is LoginFragment -> {
-//                        }
-//                        is SearchScreen -> {
-//                            binding.bottomNavigationView.visibility = View.GONE
-//                        }
-//                        else -> {
-//                            binding.bottomNavigationView.visibility = View.VISIBLE
-//                        }
-//                    }
-//                }
-//            },
-//            true
-//        )
     }
 }
