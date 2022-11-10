@@ -3,7 +3,7 @@
     <item
         android:id="@+id/mainScreen"
         android:title="Home"
-        android:icon="@drawable/home_resized"
+        android:icon="@drawable/home_switch"
         />
     <item
         android:id="@+id/searchScreen"
@@ -13,7 +13,7 @@
     <item
         android:id="@+id/new_post"
         android:title="Contact"
-        android:icon="@drawable/addpost2"
+        android:icon="@drawable/add_switch"
         />
     <item
         android:id="@+id/activity"

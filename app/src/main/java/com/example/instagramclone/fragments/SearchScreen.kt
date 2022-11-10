@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import com.example.instagramclone.R
 import com.example.instagramclone.databinding.FragmentSearchScreenBinding
 
 class SearchScreen : Fragment() {

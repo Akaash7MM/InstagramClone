@@ -33,7 +33,7 @@ class MainScreen() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val storiesAdapter = StoriesAdapter()
         val postsAdapter = PostsAdapter(onImageClick = {
-            val action = MainScreenDirections.actionMainScreenToSearchScreen(2345)
+            val action = MainScreenDirections.actionMainScreenToSearchScreen()
             Navigation.findNavController(binding.root).navigate(action)
         })
         collectLatestLifecycleFlow(viewModel.uiState) { result ->

@@ -2,28 +2,21 @@ package com.example.data.repository
 
 import com.example.data.PostApi
 import com.example.data.remote.dto.toPost
-import com.example.data.util.safeResult
 import com.example.domain.entities.Post
 import com.example.domain.repository.PostRepository
-import com.example.domain.util.Resource
-
+import kotlinx.coroutines.flow.map
 
 class PostRepositoryImpl(
     val api: PostApi
-
 ) : PostRepository {
-    override suspend fun getPosts(): Resource<List<Post>> {
-        val result = safeResult {
-            api.getPosts()
-        }
-        when (result) {
-            is Resource.Success -> {
-                val list = result.result.photos.map { it.toPost() }
-                return Resource.Success(list)
-            }
-            is Resource.Failure -> {
-                return Resource.Failure(result.throwable)
-            }
+
+    override suspend fun getPosts(): List<Post> {
+        val response = api.getPosts()
+
+        if (response.isSuccessful) {
+            return response.body()!!.photos.map { it.toPost() }
+        } else {
+            return emptyList()
         }
     }
 }
