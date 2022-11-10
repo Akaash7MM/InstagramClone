@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainScreen() : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-    private val viewModel by viewModels<MainScreenViewModel>()
+    private val mainScreenViewModel by viewModels<MainScreenViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +36,7 @@ class MainScreen() : Fragment() {
             val action = MainScreenDirections.actionMainScreenToSearchScreen()
             Navigation.findNavController(binding.root).navigate(action)
         })
-        collectLatestLifecycleFlow(viewModel.uiState) { result ->
+        collectLatestLifecycleFlow(mainScreenViewModel.uiState) { result ->
             when (result) {
                 is MainScreenState.Success -> {
                     postsAdapter.submitList(result.postList)
@@ -49,7 +49,6 @@ class MainScreen() : Fragment() {
                 else -> Unit
             }
         }
-
 
         binding.rvStories.apply {
             adapter = storiesAdapter
