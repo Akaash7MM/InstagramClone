@@ -1,15 +1,24 @@
 package com.example.instagramclone.di
 
+import android.content.Context
 import android.util.Log
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.example.data.BuildConfig
 import com.example.data.PostApi
+import com.example.data.repository.AuthRepositoryImpl
 import com.example.data.repository.PostRepositoryImpl
 import com.example.data.util.Constants
+import com.example.domain.repository.AuthRepository
 import com.example.domain.repository.PostRepository
+import com.example.domain.usecases.GetFetchDetailsUseCase
 import com.example.domain.usecases.GetPostUseCase
+import com.example.domain.usecases.GetSaveDetailsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -22,6 +31,16 @@ import kotlin.annotation.AnnotationRetention.BINARY
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
+
+    private val Context.userDataStore: DataStore<Preferences> by preferencesDataStore(name = "account_details")
+
+    @Provides
+    @Singleton
+    fun provideUserDataStorePreferences(
+        @ApplicationContext applicationContext: Context
+    ): DataStore<Preferences> {
+        return applicationContext.userDataStore
+    }
 
     @Provides
     @Singleton
@@ -80,8 +99,26 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun providesAuthRepository(dataStore: DataStore<Preferences>): AuthRepository {
+        return AuthRepositoryImpl(dataStore)
+    }
+
+    @Provides
+    @Singleton
     fun providesPostUseCase(repository: PostRepository): GetPostUseCase {
         return GetPostUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun providesSaveDetailsUseCase(repository: AuthRepository): GetSaveDetailsUseCase {
+        return GetSaveDetailsUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun providesFetchDetailsUseCase(repository: AuthRepository): GetFetchDetailsUseCase {
+        return GetFetchDetailsUseCase(repository)
     }
 }
 
