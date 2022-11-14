@@ -21,6 +21,9 @@
             <action
                 android:id="@+id/action_mainScreen_to_searchScreen"
                 app:destination="@id/searchScreen" />
+            <action
+                android:id="@+id/action_mainScreen_to_messageFragment"
+                app:destination="@id/messageFragment" />
         </fragment>
         <fragment
             android:id="@+id/searchScreen"
@@ -43,5 +46,10 @@
         <action
             android:id="@+id/action_initialFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.example.instagramclone.fragments.message_screen.MessageFragment"
+        android:label="MessageFragment" >
     </fragment>
 </navigation>
