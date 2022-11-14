@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.instagramclone.R
 import com.example.instagramclone.adapters.PostsAdapter
 import com.example.instagramclone.adapters.StoriesAdapter
 import com.example.instagramclone.databinding.FragmentMainScreenBinding
@@ -58,6 +59,17 @@ class MainScreen() : Fragment() {
         binding.rvPosts.apply {
             adapter = postsAdapter
             layoutManager = LinearLayoutManager(this@MainScreen.context)
+        }
+
+        binding.myToolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.messages -> {
+                    val action = MainScreenDirections.actionMainScreenToMessageFragment()
+                    Navigation.findNavController(binding.root).navigate(action)
+                    true
+                }
+                else -> true
+            }
         }
     }
 }

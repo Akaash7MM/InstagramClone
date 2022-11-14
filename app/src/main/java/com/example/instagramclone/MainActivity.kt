@@ -37,6 +37,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.initialFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
+                R.id.messageFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
                 else -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }
