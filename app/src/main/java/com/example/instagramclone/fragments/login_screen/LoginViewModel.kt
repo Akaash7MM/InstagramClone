@@ -46,9 +46,7 @@ class LoginViewModel @Inject constructor(
     fun getDetails(username: String) {
         viewModelScope.launch(Dispatchers.IO) {
             getFetchDetailsUseCase(username).collect { password ->
-                password.let { pass ->
-                    userToken.emit(pass)
-                }
+                userToken.emit(password)
             }
         }
     }
