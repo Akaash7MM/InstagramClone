@@ -12,9 +12,12 @@ import com.example.data.repository.PostRepositoryImpl
 import com.example.data.util.Constants
 import com.example.domain.repository.AuthRepository
 import com.example.domain.repository.PostRepository
+import com.example.domain.usecases.GetCreateUserUseCase
 import com.example.domain.usecases.GetFetchDetailsUseCase
+import com.example.domain.usecases.GetLoginUserUseCase
 import com.example.domain.usecases.GetPostUseCase
 import com.example.domain.usecases.GetSaveDetailsUseCase
+import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,6 +43,12 @@ class AppModule {
         @ApplicationContext applicationContext: Context
     ): DataStore<Preferences> {
         return applicationContext.userDataStore
+    }
+
+    @Provides
+    @Singleton
+    fun providesFirebaseAuthInstance(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
     }
 
     @Provides
@@ -99,8 +108,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providesAuthRepository(dataStore: DataStore<Preferences>): AuthRepository {
-        return AuthRepositoryImpl(dataStore)
+    fun providesAuthRepository(dataStore: DataStore<Preferences>, firebaseAuth: FirebaseAuth): AuthRepository {
+        return AuthRepositoryImpl(dataStore, firebaseAuth)
     }
 
     @Provides
@@ -119,6 +128,17 @@ class AppModule {
     @Singleton
     fun providesFetchDetailsUseCase(repository: AuthRepository): GetFetchDetailsUseCase {
         return GetFetchDetailsUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun providesCreateUserUseCase(repository: AuthRepository): GetCreateUserUseCase {
+        return GetCreateUserUseCase(repository)
+    }
+    @Provides
+    @Singleton
+    fun providesLoginUserUseCase(repository: AuthRepository): GetLoginUserUseCase {
+        return GetLoginUserUseCase(repository)
     }
 }
 

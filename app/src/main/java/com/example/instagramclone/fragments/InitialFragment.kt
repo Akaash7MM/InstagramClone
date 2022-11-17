@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class InitialFragment : Fragment() {
@@ -31,16 +32,16 @@ class InitialFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val navController = Navigation.findNavController(initialBinding.root)
-        loginViewModel.getDetails("Username")
-        val token = loginViewModel.userToken
 
-        lifecycleScope.launch(Dispatchers.Main) {
-            token.collect() {
-                if (navController.currentDestination?.id == R.id.initialFragment) {
-                    if (it.isEmpty()) {
-                        navController.navigate(InitialFragmentDirections.actionInitialFragmentToLoginFragment())
-                    } else {
-                        navController.navigate(InitialFragmentDirections.actionInitialFragmentToMainScreen())
+        lifecycleScope.launch(Dispatchers.IO) {
+            loginViewModel.userAuthChangeFlow().collect { isLoggedin ->
+                withContext(Dispatchers.Main) {
+                    if (navController.currentDestination?.id == R.id.initialFragment) {
+                        if (!isLoggedin) {
+                            navController.navigate(InitialFragmentDirections.actionInitialFragmentToLoginFragment())
+                        } else {
+                            navController.navigate(InitialFragmentDirections.actionInitialFragmentToMainScreen())
+                        }
                     }
                 }
             }

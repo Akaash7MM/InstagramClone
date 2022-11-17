@@ -8,4 +8,7 @@
     <string name="login_text">Log in</string>
     <string name="sign_up_text">Don\'t have an account? Sign Up</string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="terms_conditions">By signing up, you agree to our Terms, Privacy Policy and Cookies Policy</string>
+    <string name="have_an_account_login">Have an account? Login</string>
 </resources>

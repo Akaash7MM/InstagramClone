@@ -6,11 +6,14 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.example.domain.repository.AuthRepository
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.tasks.await
 
 class AuthRepositoryImpl(
-    val dataStore: DataStore<Preferences>
+    val dataStore: DataStore<Preferences>,
+    val firebaseAuth: FirebaseAuth
 ) : AuthRepository {
 
     override suspend fun saveLoginDetails(key: String, data: String) {
@@ -25,5 +28,15 @@ class AuthRepositoryImpl(
         return dataStore.data.map { prefs ->
             prefs[usernameKey].orEmpty()
         }
+    }
+
+    override suspend fun createUser(email: String, password: String): Boolean {
+        val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+        return result.user != null
+    }
+
+    override suspend fun loginUser(email: String, password: String): Boolean {
+        val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
+        return result.user != null
     }
 }
