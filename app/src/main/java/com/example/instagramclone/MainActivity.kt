@@ -2,9 +2,13 @@ package com.example.instagramclone
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.instagramclone.databinding.ActivityMainBinding
+import com.google.android.material.elevation.SurfaceColors
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -15,21 +19,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val mainScreenFragment = MainScreen()
-        setContentFragment(mainScreenFragment)
+        window.setStatusBarColor(SurfaceColors.SURFACE_5.getColor(this))
 
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.home -> setContentFragment(mainScreenFragment)
-            }
-            true
-        }
-    }
-
-    private fun setContentFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment, fragment)
-            commit()
-        }
+        val navHostFragment = binding.fragmentContainerView.getFragment<NavHostFragment>()
+        val navController = navHostFragment.navController
+        binding.bottomNavigationView.setupWithNavController(navController)
     }
 }

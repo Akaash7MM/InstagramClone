@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/home"
+        android:id="@+id/mainScreen"
         android:title="Home"
-        android:icon="@drawable/ic_home_foreground"
+        android:icon="@drawable/home_switch"
         />
     <item
-        android:id="@+id/message"
-        android:title="message"
-        android:icon="@drawable/ic_home_foreground"
+        android:id="@+id/searchScreen"
+        android:title="Search"
+        android:icon="@drawable/mag_switch"
         />
     <item
-        android:id="@+id/contact"
+        android:id="@+id/new_post"
         android:title="Contact"
-        android:icon="@drawable/ic_home_foreground"
+        android:icon="@drawable/add_switch"
         />
-
+    <item
+        android:id="@+id/activity"
+        android:title="Activity"
+        android:icon="@drawable/heart_switch"
+        />
+    <item
+        android:id="@+id/profile"
+        android:title="Message"
+        android:icon="@drawable/profile"
+        />
 </menu>
