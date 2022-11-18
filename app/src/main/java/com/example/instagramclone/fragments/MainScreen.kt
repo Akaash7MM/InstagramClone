@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagramclone.adapters.PostsAdapter
@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainScreen() : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-    private val viewModel by viewModels<MainScreenViewModel>()
+    private val mainScreenViewModel by viewModels<MainScreenViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,19 +32,22 @@ class MainScreen() : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val uri = requireActivity().intent.data
+        val postId = uri?.lastPathSegment
         val storiesAdapter = StoriesAdapter()
-        val postsAdapter = PostsAdapter(onImageClick = {
-            val action = MainScreenDirections.actionMainScreenToSearchScreen()
-            Navigation.findNavController(binding.root).navigate(action)
-        })
-        collectLatestLifecycleFlow(viewModel.uiState) { result ->
+        val postsAdapter = PostsAdapter(onSaveTap = { tappedPost ->
+            mainScreenViewModel.savePost(post = tappedPost)
+        }, onImageClick = {
+//            binding.rvPosts.scrollToPosition(5)
+                binding.nestedScrollView2.smoothScrollTo(0, 1000, 5000)
+            })
+        collectLatestLifecycleFlow(mainScreenViewModel.uiState) { result ->
             when (result) {
                 is MainScreenState.Success -> {
                     postsAdapter.submitList(result.postList)
                     storiesAdapter.submitList(result.postList)
                 }
                 is MainScreenState.Failure -> {
-
                 }
                 is MainScreenState.Loading -> {
                 }
@@ -61,7 +64,11 @@ class MainScreen() : Fragment() {
             adapter = postsAdapter
             layoutManager = LinearLayoutManager(this@MainScreen.context)
         }
+
+        postId?.let {
+//            val isd = it.toInt()
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            binding.nestedScrollView2.smoothScrollTo(0, 1000, 5000)
+        }
     }
 }
-
-
