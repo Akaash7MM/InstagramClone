@@ -1,6 +1,5 @@
-package com.example.data.util
+package com.example.domain.util
 
-import com.example.domain.util.Resource
 
 suspend fun <T> safeResult(block: suspend () -> T): Resource<T> {
     return try {

@@ -123,13 +123,13 @@
                 android:src="@drawable/share" />
 
             <ImageView
-                android:id="@+id/imgBtn1"
+                android:id="@+id/BtSave"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/tagg" />
+                android:src="@drawable/save_switch" />
         </RelativeLayout>
 
 

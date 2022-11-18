@@ -1,12 +1,13 @@
-package com.example.instagramclone.fragments.main_screen
+package com.example.instagramclone.fragments
 
+import MainScreenState
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagramclone.adapters.PostsAdapter
@@ -31,11 +32,15 @@ class MainScreen() : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val uri = requireActivity().intent.data
+        val postId = uri?.lastPathSegment
         val storiesAdapter = StoriesAdapter()
-        val postsAdapter = PostsAdapter(onImageClick = {
-            val action = MainScreenDirections.actionMainScreenToSearchScreen()
-            Navigation.findNavController(binding.root).navigate(action)
-        })
+        val postsAdapter = PostsAdapter(onSaveTap = { tappedPost ->
+            mainScreenViewModel.savePost(post = tappedPost)
+        }, onImageClick = {
+//            binding.rvPosts.scrollToPosition(5)
+                binding.nestedScrollView2.smoothScrollTo(0, 1000, 5000)
+            })
         collectLatestLifecycleFlow(mainScreenViewModel.uiState) { result ->
             when (result) {
                 is MainScreenState.Success -> {
@@ -58,6 +63,12 @@ class MainScreen() : Fragment() {
         binding.rvPosts.apply {
             adapter = postsAdapter
             layoutManager = LinearLayoutManager(this@MainScreen.context)
+        }
+
+        postId?.let {
+//            val isd = it.toInt()
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            binding.nestedScrollView2.smoothScrollTo(0, 1000, 5000)
         }
     }
 }
