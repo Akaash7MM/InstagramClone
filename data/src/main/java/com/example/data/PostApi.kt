@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface PostApi {
 
     @GET("/v1/curated")
-    suspend fun getPosts(): Response<PostDTO>
+    suspend fun getPosts(): PostDTO
 }

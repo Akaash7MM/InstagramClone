@@ -50,6 +50,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPosts"
+                android:layout_marginBottom="45dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

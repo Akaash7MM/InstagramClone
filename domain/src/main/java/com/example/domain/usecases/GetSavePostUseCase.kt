@@ -5,11 +5,11 @@ import com.example.domain.repository.PostRepository
 import com.example.domain.util.Resource
 import com.example.domain.util.safeResult
 
-class GetPostUseCase(
+class GetSavePostUseCase(
     private val postRepository: PostRepository
 ) {
-    suspend operator fun invoke(): Resource<List<Post>> {
-        val result = safeResult { postRepository.getPosts() }
+    suspend operator fun invoke(post: Post): Resource<Boolean> {
+        val result = safeResult { postRepository.savePost(post) }
 
         when (result) {
             is Resource.Success -> {

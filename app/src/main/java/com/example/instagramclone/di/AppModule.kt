@@ -7,6 +7,7 @@ import com.example.data.repository.PostRepositoryImpl
 import com.example.data.util.Constants
 import com.example.domain.repository.PostRepository
 import com.example.domain.usecases.GetPostUseCase
+import com.example.domain.usecases.GetSavePostUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -82,6 +83,11 @@ class AppModule {
     @Singleton
     fun providesPostUseCase(repository: PostRepository): GetPostUseCase {
         return GetPostUseCase(repository)
+    }
+    @Provides
+    @Singleton
+    fun providesSavePostUseCase(repository: PostRepository): GetSavePostUseCase {
+        return GetSavePostUseCase(repository)
     }
 }
 

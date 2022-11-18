@@ -19,7 +19,9 @@ import com.example.instagramclone.databinding.AdItemBinding
 import com.example.instagramclone.databinding.PostItemBinding
 
 class PostsAdapter(
+    private val onSaveTap: (Post) -> Unit,
     private val onImageClick: () -> Unit
+
 ) : ListAdapter<Post, PostViewHolder>(myDiffUtil()), OnClickListener {
 
     private lateinit var valueAnimator: ValueAnimator
@@ -44,17 +46,9 @@ class PostsAdapter(
             is PostViewHolder.AdPost -> {
                 holder.binding.postImage.apply {
                     load(post.imgUrlNormal)
-
-                    setOnClickListener {
-                        onImageClick()
-                    }
                 }
-
                 holder.binding.likeheartFilled.setOnClickListener {
                     setAnimationToObject(it)
-                }
-                holder.binding.postImage.setOnClickListener() {
-                    onImageClick()
                 }
 
                 val desc = SpannableStringBuilder()
@@ -67,8 +61,7 @@ class PostsAdapter(
             is PostViewHolder.UserPost -> {
                 holder.binding.postImage.apply {
                     load(post.imgUrlNormal)
-
-                    setOnClickListener {
+                    setOnClickListener(){
                         onImageClick()
                     }
                 }
@@ -76,6 +69,10 @@ class PostsAdapter(
                     load(post.imgUrlsmall) {
                         transformations(CircleCropTransformation())
                     }
+                }
+                holder.binding.BtSave.setOnClickListener(){
+                    it.isEnabled = false
+                    onSaveTap(post)
                 }
 
                 holder.binding.likeheartFilled.setOnClickListener {
