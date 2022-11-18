@@ -1,8 +1,8 @@
 package com.example.domain.usecases
 
-import com.example.data.util.safeResult
 import com.example.domain.repository.AuthRepository
 import com.example.domain.util.Resource
+import com.example.domain.util.safeResult
 
 class GetCreateUserUseCase(
     private val authRepository: AuthRepository

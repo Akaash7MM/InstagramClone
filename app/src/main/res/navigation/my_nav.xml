@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainScreen"
-        android:name="com.example.instagramclone.fragments.main_screen.MainScreen"
+        android:name="com.example.instagramclone.fragments.MainScreen"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen">
         <action
