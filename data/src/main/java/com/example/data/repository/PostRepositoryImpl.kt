@@ -18,8 +18,9 @@ class PostRepositoryImpl(
         return postList
     }
 
-    override suspend fun savePost(post: Post) : Boolean {
-        val result = Firebase.firestore.collection("Posts").add(post)
+    override suspend fun savePost(post: Post): Boolean {
+        val userId = Firebase.auth.currentUser?.uid
+        val result = Firebase.firestore.collection("Users/$userId/Posts").add(post)
         return result.isSuccessful
     }
 }

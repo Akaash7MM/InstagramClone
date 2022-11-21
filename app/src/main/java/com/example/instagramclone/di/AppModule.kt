@@ -18,6 +18,7 @@ import com.example.domain.usecases.GetLoginUserUseCase
 import com.example.domain.usecases.GetPostUseCase
 import com.example.domain.usecases.GetSaveDetailsUseCase
 import com.example.domain.usecases.GetSavePostUseCase
+import com.example.domain.usecases.GetSavedPostsUseCase
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -122,6 +123,11 @@ class AppModule {
     @Singleton
     fun providesSavePostUseCase(repository: PostRepository): GetSavePostUseCase {
         return GetSavePostUseCase(repository)
+    }
+    @Provides
+    @Singleton
+    fun providesGetSavedPostsUseCase(repository: PostRepository): GetSavedPostsUseCase {
+        return GetSavedPostsUseCase(repository)
     }
 
     @Provides
