@@ -17,20 +17,20 @@
             app:destination="@id/signupFragment" />
     </fragment>
     <fragment
-        android:id="@+id/mainScreen"
+        android:id="@+id/mainFragment"
         android:name="com.example.instagramclone.fragments.MainScreen"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen">
-        <action
-            android:id="@+id/action_mainScreen_to_searchScreen"
-            app:destination="@id/searchScreen" />
         <argument
             android:name="id"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
         <fragment
-            android:id="@+id/searchScreen"
+            android:id="@+id/searchFragment"
             android:name="com.example.instagramclone.fragments.SearchScreen"
             android:label="fragment_search_screen"
             tools:layout="@layout/fragment_search_screen">
@@ -46,7 +46,7 @@
         tools:layout="@layout/fragment_initial" >
         <action
             android:id="@+id/action_initialFragment_to_mainScreen"
-            app:destination="@id/mainScreen" />
+            app:destination="@id/mainFragment" />
         <action
             android:id="@+id/action_initialFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -57,6 +57,10 @@
         android:label="SignupFragment" >
         <action
             android:id="@+id/action_signupFragment_to_mainScreen"
-            app:destination="@id/mainScreen" />
+            app:destination="@id/mainFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.instagramclone.fragments.profile_screen.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/mainScreen"
+        android:id="@+id/mainFragment"
         android:title="Home"
         android:icon="@drawable/home_switch"
         />
     <item
-        android:id="@+id/searchScreen"
+        android:id="@+id/searchFragment"
         android:title="Search"
         android:icon="@drawable/mag_switch"
         />
@@ -21,7 +21,7 @@
         android:icon="@drawable/heart_switch"
         />
     <item
-        android:id="@+id/profile"
+        android:id="@+id/profileFragment"
         android:title="Message"
         android:icon="@drawable/profile"
         />

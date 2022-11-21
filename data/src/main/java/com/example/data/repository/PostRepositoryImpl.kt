@@ -4,7 +4,9 @@ import com.example.data.PostApi
 import com.example.data.remote.dto.toPost
 import com.example.domain.entities.Post
 import com.example.domain.repository.PostRepository
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
@@ -22,5 +24,13 @@ class PostRepositoryImpl(
         val userId = Firebase.auth.currentUser?.uid
         val result = Firebase.firestore.collection("Users/$userId/Posts").add(post)
         return result.isSuccessful
+    }
+
+    override suspend fun getSavedPosts(): List<Post> {
+        val userId = Firebase.auth.currentUser?.uid
+        val result = Firebase.firestore.collection("Users/$userId/Posts").get().await()
+        val postList = result.map { it.toObject(Post::class.java) }
+
+        return postList
     }
 }
