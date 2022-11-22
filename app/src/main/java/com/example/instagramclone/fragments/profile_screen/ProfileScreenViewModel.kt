@@ -28,7 +28,9 @@ class ProfileScreenViewModel @Inject constructor(
             val result = getSavedPostsUseCase()
             when (result) {
                 is Resource.Success -> {
-                    _uiState.value = ProfileScreenState.Success(result.data)
+                    result.data.collect { savedPostList ->
+                        _uiState.value = ProfileScreenState.Success(savedPostList)
+                    }
                 }
                 is Resource.Failure -> {
                     Log.d("ProfileScreen", result.throwable.toString())

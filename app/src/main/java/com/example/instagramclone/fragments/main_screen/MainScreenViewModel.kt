@@ -1,6 +1,5 @@
 package com.example.instagramclone.fragments
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.domain.entities.Post
 import com.example.domain.usecases.GetPostUseCase
@@ -8,11 +7,10 @@ import com.example.domain.usecases.GetSavePostUseCase
 import com.example.domain.util.Resource
 import com.example.instagramclone.fragments.main_screen.MainScreenState
 import com.example.instagramclone.util.ioScope
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,7 +32,9 @@ class MainScreenViewModel @Inject constructor(
             val result = postUseCase.invoke()
             when (result) {
                 is Resource.Success -> {
-                    _uiState.value = MainScreenState.Success(result.data)
+                    result.data.collect() { postList ->
+                        _uiState.value = MainScreenState.Success(postList)
+                    }
                 }
                 is Resource.Failure -> {
                     _uiState.value = MainScreenState.Failure(throwable = result.throwable)
@@ -46,12 +46,11 @@ class MainScreenViewModel @Inject constructor(
     fun savePost(post: Post) {
         ioScope {
             val result = savePostUseCase(post)
-            when(result){
-                is Resource.Success ->{
-                    //Channel Toast
+            when (result) {
+                is Resource.Success -> {
+                    // Channel Toast
                 }
-                is Resource.Failure ->{
-
+                is Resource.Failure -> {
                 }
             }
         }

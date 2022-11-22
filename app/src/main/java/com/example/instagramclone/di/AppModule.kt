@@ -1,12 +1,15 @@
 package com.example.instagramclone.di
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.room.Room
 import com.example.data.BuildConfig
 import com.example.data.PostApi
+import com.example.data.local.PostDatabase
 import com.example.data.repository.AuthRepositoryImpl
 import com.example.data.repository.PostRepositoryImpl
 import com.example.data.util.Constants
@@ -98,14 +101,24 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun providesPostDatabase(application: Application): PostDatabase {
+        return Room.databaseBuilder(
+            application.applicationContext,
+            PostDatabase::class.java,
+            "post_database"
+        ).build()
+    }
+
+    @Provides
+    @Singleton
     fun providesPostApi(authRetrofit: Retrofit): PostApi {
         return authRetrofit.create(PostApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun providesPostRepository(api: PostApi): PostRepository {
-        return PostRepositoryImpl(api)
+    fun providesPostRepository(api: PostApi, db: PostDatabase): PostRepository {
+        return PostRepositoryImpl(api, db.postDao())
     }
 
     @Provides
@@ -119,11 +132,13 @@ class AppModule {
     fun providesPostUseCase(repository: PostRepository): GetPostUseCase {
         return GetPostUseCase(repository)
     }
+
     @Provides
     @Singleton
     fun providesSavePostUseCase(repository: PostRepository): GetSavePostUseCase {
         return GetSavePostUseCase(repository)
     }
+
     @Provides
     @Singleton
     fun providesGetSavedPostsUseCase(repository: PostRepository): GetSavedPostsUseCase {
@@ -147,6 +162,7 @@ class AppModule {
     fun providesCreateUserUseCase(repository: AuthRepository): GetCreateUserUseCase {
         return GetCreateUserUseCase(repository)
     }
+
     @Provides
     @Singleton
     fun providesLoginUserUseCase(repository: AuthRepository): GetLoginUserUseCase {

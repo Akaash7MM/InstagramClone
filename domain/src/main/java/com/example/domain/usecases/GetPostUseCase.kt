@@ -4,11 +4,12 @@ import com.example.domain.entities.Post
 import com.example.domain.repository.PostRepository
 import com.example.domain.util.Resource
 import com.example.domain.util.safeResult
+import kotlinx.coroutines.flow.Flow
 
 class GetPostUseCase(
     private val postRepository: PostRepository
 ) {
-    suspend operator fun invoke(): Resource<List<Post>> {
+    suspend operator fun invoke(): Resource<Flow<List<Post>>> {
         val result = safeResult { postRepository.getPosts() }
 
         when (result) {
