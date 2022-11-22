@@ -17,6 +17,7 @@ import com.example.domain.repository.AuthRepository
 import com.example.domain.repository.PostRepository
 import com.example.domain.usecases.GetCreateUserUseCase
 import com.example.domain.usecases.GetFetchDetailsUseCase
+import com.example.domain.usecases.GetFetchPostsUseCase
 import com.example.domain.usecases.GetLoginUserUseCase
 import com.example.domain.usecases.GetPostUseCase
 import com.example.domain.usecases.GetSaveDetailsUseCase
@@ -147,6 +148,12 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun providesFetchPostsUseCase(repository: PostRepository): GetFetchPostsUseCase {
+        return GetFetchPostsUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
     fun providesSaveDetailsUseCase(repository: AuthRepository): GetSaveDetailsUseCase {
         return GetSaveDetailsUseCase(repository)
     }
@@ -168,6 +175,7 @@ class AppModule {
     fun providesLoginUserUseCase(repository: AuthRepository): GetLoginUserUseCase {
         return GetLoginUserUseCase(repository)
     }
+
 }
 
 @Qualifier
