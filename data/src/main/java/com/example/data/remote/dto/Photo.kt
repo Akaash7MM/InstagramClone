@@ -1,5 +1,6 @@
 package com.example.data.remote.dto
 
+import com.example.data.local.entities.PostEntity
 import com.example.domain.entities.Post
 
 data class Photo(
@@ -21,8 +22,16 @@ fun Photo.toPost(): Post {
         imgUrlNormal = src.large2x,
         imgUrlsmall = src.tiny,
         contentDesc = alt,
-        userName = photographer,
-        width = width,
-        height = height
+        userName = photographer
+    )
+}
+fun Photo.toPostEntity(): PostEntity {
+    return PostEntity(
+        id = id,
+        imgUrlOriginal = src.original,
+        imgUrlNormal = src.large2x,
+        imgUrlsmall = src.tiny,
+        contentDesc = alt,
+        userName = photographer
     )
 }

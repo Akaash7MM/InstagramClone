@@ -6,11 +6,11 @@ import com.example.domain.util.Resource
 import com.example.domain.util.safeResult
 import kotlinx.coroutines.flow.Flow
 
-class GetPostUseCase(
+class GetSavedPostsUseCase(
     private val postRepository: PostRepository
 ) {
     suspend operator fun invoke(): Resource<Flow<List<Post>>> {
-        val result = safeResult { postRepository.getPosts() }
+        val result = safeResult { postRepository.getSavedPosts() }
 
         when (result) {
             is Resource.Success -> {
