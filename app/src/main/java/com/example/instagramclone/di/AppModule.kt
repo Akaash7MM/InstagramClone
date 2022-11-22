@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.room.Room
 import com.example.data.BuildConfig
 import com.example.data.PostApi
@@ -108,6 +109,15 @@ class AppModule {
             PostDatabase::class.java,
             "post_database"
         ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesExoplayer(
+        @ApplicationContext applicationContext: Context
+    ): ExoPlayer {
+        return ExoPlayer.Builder(applicationContext)
+            .build()
     }
 
     @Provides

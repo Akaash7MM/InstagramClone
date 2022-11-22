@@ -63,4 +63,9 @@
         android:id="@+id/profileFragment"
         android:name="com.example.instagramclone.fragments.profile_screen.ProfileFragment"
         android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/reelsFragment"
+        android:name="com.example.instagramclone.fragments.reels_screen.ReelsFragment"
+        android:label="fragment_reels"
+        tools:layout="@layout/fragment_reels" />
 </navigation>
