@@ -1,4 +1,4 @@
-package com.example.data.remote.dto
+package com.example.data.remote.dto.photo
 
 data class Src(
     val landscape: String,

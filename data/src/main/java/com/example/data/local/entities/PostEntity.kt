@@ -12,7 +12,11 @@ data class PostEntity(
     val imgUrlOriginal: String,
     val imgUrlsmall: String,
     val contentDesc: String,
-    val imgUrlNormal: String
+    val imgUrlNormal: String,
+    val isVideo: Boolean,
+    val videoUrlHD: String,
+    val videoUrlSD: String
+
 )
 
 fun PostEntity.toPost(postEntity: PostEntity): Post {
@@ -22,6 +26,9 @@ fun PostEntity.toPost(postEntity: PostEntity): Post {
         imgUrlOriginal = postEntity.imgUrlOriginal,
         imgUrlsmall = postEntity.imgUrlsmall,
         contentDesc = postEntity.contentDesc,
-        imgUrlNormal = postEntity.imgUrlNormal
+        imgUrlNormal = postEntity.imgUrlNormal,
+        isVideo = postEntity.isVideo,
+        videoUrlHD = postEntity.videoUrlHD,
+        videoUrlSD = postEntity.videoUrlSD
     )
 }

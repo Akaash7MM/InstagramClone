@@ -3,7 +3,8 @@ package com.example.data.repository
 import com.example.data.PostApi
 import com.example.data.local.dao.PostDao
 import com.example.data.local.entities.toPost
-import com.example.data.remote.dto.toPostEntity
+import com.example.data.remote.dto.photo.toPostEntity
+import com.example.data.remote.dto.video.toPostEntity
 import com.example.domain.entities.Post
 import com.example.domain.repository.PostRepository
 import com.google.firebase.auth.ktx.auth
@@ -29,9 +30,15 @@ class PostRepositoryImpl(
     }
 
     override suspend fun fetchPosts() {
-        val response = api.getPosts().photos
-        val postEntityList = response.map { it.toPostEntity() }
-        dao.addPosts(postEntityList)
+        val photoResponse = api.getPhotoPost().photos
+        val videoResponse = api.getVideoPosts().videos
+
+        val photoEntityList = photoResponse.map { it.toPostEntity() }
+        val videoEntityList = videoResponse.map { it.toPostEntity() }
+
+        val finalList = photoEntityList.plus(videoEntityList)
+
+        dao.addPosts(finalList)
     }
 
     override suspend fun savePost(post: Post): Boolean {

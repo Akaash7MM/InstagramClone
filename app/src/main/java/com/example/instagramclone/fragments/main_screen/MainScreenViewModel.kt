@@ -36,7 +36,7 @@ class MainScreenViewModel @Inject constructor(
             when (result) {
                 is Resource.Success -> {
                     result.data.collect() { postList ->
-                        _uiState.value = MainScreenState.Success(postList)
+                        _uiState.value = MainScreenState.Success(postList.shuffled())
                     }
                 }
                 is Resource.Failure -> {

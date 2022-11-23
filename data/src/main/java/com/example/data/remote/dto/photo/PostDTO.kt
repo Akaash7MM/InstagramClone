@@ -1,6 +1,4 @@
-package com.example.data.remote.dto
-
-import android.os.Parcelable
+package com.example.data.remote.dto.photo
 
 
 data class PostDTO(
