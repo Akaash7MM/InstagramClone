@@ -1,4 +1,4 @@
-package com.example.data.remote.dto
+package com.example.data.remote.dto.photo
 
 import com.example.data.local.entities.PostEntity
 import com.example.domain.entities.Post
@@ -28,10 +28,15 @@ fun Photo.toPost(): Post {
 fun Photo.toPostEntity(): PostEntity {
     return PostEntity(
         id = id,
+        isVideo = false,
         imgUrlOriginal = src.original,
         imgUrlNormal = src.large2x,
         imgUrlsmall = src.tiny,
         contentDesc = alt,
-        userName = photographer
+        userName = photographer,
+        videoUrlSD = "",
+        videoUrlHD = "",
+        videoImg = "",
+        videoPreview = ""
     )
 }

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutDescription="@xml/fragment_main_screen_scene"
-    tools:context=".fragments.main_screen.MainScreen">
+    app:layoutDescription="@xml/fragment_main_screen_scene">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -47,7 +46,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"/>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPosts"
                 android:layout_marginBottom="45dp"
@@ -55,8 +53,8 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

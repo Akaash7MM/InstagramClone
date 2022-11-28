@@ -5,32 +5,31 @@ import android.animation.ValueAnimator
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import androidx.core.text.bold
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import coil.load
+import coil.size.Scale
 import coil.transform.CircleCropTransformation
 import com.example.domain.entities.Post
 import com.example.instagramclone.R
-import com.example.instagramclone.databinding.AdItemBinding
 import com.example.instagramclone.databinding.PostItemBinding
+import com.example.instagramclone.databinding.VideoItemBinding
 
 class PostsAdapter(
     private val onSaveTap: (Post) -> Unit,
     private val onImageClick: () -> Unit
-
-) : ListAdapter<Post, PostViewHolder>(myDiffUtil()), OnClickListener {
+) : ListAdapter<Post, PostViewHolder>(myDiffUtil()) {
 
     private lateinit var valueAnimator: ValueAnimator
     private lateinit var objectAnimator: ObjectAnimator
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return when (viewType) {
-            R.layout.ad_item -> {
-                PostViewHolder.AdPost(AdItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            R.layout.video_item -> {
+                PostViewHolder.VideoPost(VideoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             }
             R.layout.post_item -> {
                 PostViewHolder.UserPost(PostItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -43,25 +42,10 @@ class PostsAdapter(
         val post = currentList.get(holder.bindingAdapterPosition)
 
         when (holder) {
-            is PostViewHolder.AdPost -> {
-                holder.binding.postImage.apply {
-                    load(post.imgUrlNormal)
-                }
-                holder.binding.likeheartFilled.setOnClickListener {
-                    setAnimationToObject(it)
-                }
-
-                val desc = SpannableStringBuilder()
-                    .bold { append(post.userName) }
-                    .append(" ")
-                    .append(post.contentDesc)
-
-                holder.binding.contentDesc.text = desc
-            }
             is PostViewHolder.UserPost -> {
                 holder.binding.postImage.apply {
                     load(post.imgUrlNormal)
-                    setOnClickListener(){
+                    setOnClickListener() {
                         onImageClick()
                     }
                 }
@@ -70,7 +54,7 @@ class PostsAdapter(
                         transformations(CircleCropTransformation())
                     }
                 }
-                holder.binding.BtSave.setOnClickListener(){
+                holder.binding.BtSave.setOnClickListener() {
                     it.isEnabled = false
                     onSaveTap(post)
                 }
@@ -87,13 +71,42 @@ class PostsAdapter(
 
                 holder.binding.contentDesc.text = desc
             }
+            is PostViewHolder.VideoPost -> {
+                holder.binding.root.setTag(holder)
+                holder.binding.thumbnail.apply {
+                    load(post.videoImg) {
+                        scale(Scale.FIT)
+                    }
+                }
+                holder.binding.profileImage.apply {
+                    load(post.imgUrlsmall) {
+                        transformations(CircleCropTransformation())
+                    }
+                }
+                holder.binding.BtSave.setOnClickListener() {
+                    it.isEnabled = false
+                    onSaveTap(post)
+                }
+                holder.binding.likeheartFilled.setOnClickListener {
+                    setAnimationToObject(it)
+                }
+                holder.binding.topUsername.text = post.userName
+
+                val desc = SpannableStringBuilder()
+                    .bold { append(post.userName) }
+                    .append(" ")
+                    .append(post.contentDesc)
+
+                holder.binding.contentDesc.text = desc
+            }
+            else -> Unit
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (currentList.get(position).isAd) {
+        return when (currentList.get(position).isVideo) {
             false -> R.layout.post_item
-            true -> R.layout.ad_item
+            true -> R.layout.video_item
         }
     }
 
@@ -131,8 +144,5 @@ class PostsAdapter(
         override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
             return oldItem == newItem
         }
-    }
-
-    override fun onClick(v: View?) {
     }
 }

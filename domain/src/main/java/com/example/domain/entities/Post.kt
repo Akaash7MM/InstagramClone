@@ -3,10 +3,14 @@ package com.example.domain.entities
 data class Post(
     val id: Int = 0,
     val userName: String = "natgeo",
-    val isAd: Boolean = false,
     val imgUrlOriginal: String = " ",
+    val imgUrlNormal: String = " ",
     val imgUrlsmall: String = " ",
     val contentDesc: String = "This is sample text for the description of this Instagram post, This image probably contains cool nature scenery",
-    var isLiked: Boolean = false,
-    val imgUrlNormal: String = " "
+    val isLiked: Boolean = false,
+    val isVideo: Boolean = false,
+    val videoUrlHD: String = "",
+    val videoUrlSD: String = "",
+    val videoImg: String = "",
+    val videoPreview: String = ""
 )

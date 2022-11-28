@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.room.Room
 import com.example.data.BuildConfig
 import com.example.data.PostApi
@@ -13,6 +14,7 @@ import com.example.data.local.PostDatabase
 import com.example.data.repository.AuthRepositoryImpl
 import com.example.data.repository.PostRepositoryImpl
 import com.example.data.util.Constants
+import com.example.data.util.RealCoroutineDispatcherProvider
 import com.example.domain.repository.AuthRepository
 import com.example.domain.repository.PostRepository
 import com.example.domain.usecases.GetCreateUserUseCase
@@ -112,6 +114,15 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun providesExoplayer(
+        @ApplicationContext applicationContext: Context
+    ): ExoPlayer {
+        return ExoPlayer.Builder(applicationContext)
+            .build()
+    }
+
+    @Provides
+    @Singleton
     fun providesPostApi(authRetrofit: Retrofit): PostApi {
         return authRetrofit.create(PostApi::class.java)
     }
@@ -119,7 +130,7 @@ class AppModule {
     @Provides
     @Singleton
     fun providesPostRepository(api: PostApi, db: PostDatabase): PostRepository {
-        return PostRepositoryImpl(api, db.postDao())
+        return PostRepositoryImpl(api, db.postDao(), RealCoroutineDispatcherProvider())
     }
 
     @Provides
