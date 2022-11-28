@@ -1,6 +1,7 @@
 package com.example.instagramclone.fragments
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.domain.entities.Post
 import com.example.domain.usecases.GetFetchPostsUseCase
 import com.example.domain.usecases.GetPostUseCase
@@ -12,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,7 +33,7 @@ class MainScreenViewModel @Inject constructor(
 
     fun getPostList() {
         _uiState.value = MainScreenState.Loading
-        ioScope {
+        viewModelScope.launch {
             val result = postUseCase()
             when (result) {
                 is Resource.Success -> {
@@ -47,13 +49,13 @@ class MainScreenViewModel @Inject constructor(
     }
 
     fun fetchPosts() {
-        ioScope {
+        viewModelScope.launch {
             fetchPostsUseCase()
         }
     }
 
     fun savePost(post: Post) {
-        ioScope {
+        viewModelScope.launch {
             val result = savePostUseCase(post)
             when (result) {
                 is Resource.Success -> {

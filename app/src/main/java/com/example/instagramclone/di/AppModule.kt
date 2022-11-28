@@ -14,6 +14,7 @@ import com.example.data.local.PostDatabase
 import com.example.data.repository.AuthRepositoryImpl
 import com.example.data.repository.PostRepositoryImpl
 import com.example.data.util.Constants
+import com.example.data.util.RealCoroutineDispatcherProvider
 import com.example.domain.repository.AuthRepository
 import com.example.domain.repository.PostRepository
 import com.example.domain.usecases.GetCreateUserUseCase
@@ -129,7 +130,7 @@ class AppModule {
     @Provides
     @Singleton
     fun providesPostRepository(api: PostApi, db: PostDatabase): PostRepository {
-        return PostRepositoryImpl(api, db.postDao())
+        return PostRepositoryImpl(api, db.postDao(), RealCoroutineDispatcherProvider())
     }
 
     @Provides
