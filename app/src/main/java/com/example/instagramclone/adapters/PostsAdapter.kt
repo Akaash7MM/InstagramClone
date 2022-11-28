@@ -8,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import androidx.core.text.bold
-import androidx.media3.common.MediaItem
-import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import coil.load
+import coil.size.Scale
 import coil.transform.CircleCropTransformation
 import com.example.domain.entities.Post
 import com.example.instagramclone.R
@@ -73,9 +72,11 @@ class PostsAdapter(
                 holder.binding.contentDesc.text = desc
             }
             is PostViewHolder.VideoPost -> {
-                holder.binding.videoView.apply {
-                    player = ExoPlayer.Builder(this.context).build()
-                    player?.setMediaItem(MediaItem.fromUri(post.videoUrlSD))
+                holder.binding.root.setTag(holder)
+                holder.binding.thumbnail.apply {
+                    load(post.videoImg) {
+                        scale(Scale.FIT)
+                    }
                 }
                 holder.binding.profileImage.apply {
                     load(post.imgUrlsmall) {

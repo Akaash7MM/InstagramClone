@@ -24,7 +24,9 @@ fun Video.toPost(): Post {
         userName = user.name,
         videoUrlHD = video_files.get(0).link,
         videoUrlSD = video_files.get(1).link,
-        contentDesc = "This is a video"
+        videoImg = image,
+        videoPreview = video_pictures.first().picture,
+        contentDesc = "This is a video",
     )
 }
 fun Video.toPostEntity(): PostEntity {
@@ -38,6 +40,8 @@ fun Video.toPostEntity(): PostEntity {
         imgUrlNormal = "",
         imgUrlsmall = image,
         imgUrlOriginal = "",
+        videoImg = image,
+        videoPreview = video_pictures.first().picture
 
     )
 }

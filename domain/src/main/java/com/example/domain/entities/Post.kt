@@ -10,5 +10,7 @@ data class Post(
     val isLiked: Boolean = false,
     val isVideo: Boolean = false,
     val videoUrlHD: String = "",
-    val videoUrlSD: String = ""
+    val videoUrlSD: String = "",
+    val videoImg: String = "",
+    val videoPreview: String = ""
 )

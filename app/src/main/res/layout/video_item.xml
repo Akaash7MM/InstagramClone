@@ -67,10 +67,36 @@
 
     </LinearLayout>
 
-    <androidx.media3.ui.PlayerView
-        android:id="@+id/videoView"
+<!--    <androidx.media3.ui.PlayerView-->
+<!--        android:id="@+id/videoView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="600dp"/>-->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="600dp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:background="#fff"
+        android:scaleType="center"
+        android:id="@+id/media_container">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:scaleType="center"
+            android:src="@drawable/white_background" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:visibility="gone"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
 
 
