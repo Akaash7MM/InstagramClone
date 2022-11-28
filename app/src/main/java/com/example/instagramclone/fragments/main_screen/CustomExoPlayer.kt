@@ -29,6 +29,7 @@ class CustomExoPlayer(context: Context, val postList: List<Post>) {
     var videoViewHolder: VideoPost? = null
     var thumbnail: ImageView? = null
     var isVideoViewAdded: Boolean = false
+    val TAG = "CustomExoPlayer"
 
     init {
         val ctx = context.applicationContext
@@ -71,8 +72,8 @@ class CustomExoPlayer(context: Context, val postList: List<Post>) {
             val startPositionVideoHeight: Int = getVisibleVideoSurfaceHeight(layoutManager, startPosition)
             val endPositionVideoHeight: Int = getVisibleVideoSurfaceHeight(layoutManager, endPosition)
             Log.d(
-                "RecyclerViewVideo",
-                "$startPositionVideoHeight for $startPosition $endPositionVideoHeight for $endPosition"
+                TAG,
+                "Height for view at $startPosition is  $startPositionVideoHeight : Height for view at $endPosition is $endPositionVideoHeight"
             )
             if (startPositionVideoHeight < endPositionVideoHeight) startPosition else endPosition
         } else {
@@ -80,7 +81,7 @@ class CustomExoPlayer(context: Context, val postList: List<Post>) {
         }
 
         if (playPosition == targetPosition) {
-            Log.d("RecyclerView", "Returned")
+            Log.d(TAG, "Returned")
             return
         }
         playPosition = targetPosition
@@ -88,7 +89,7 @@ class CustomExoPlayer(context: Context, val postList: List<Post>) {
         val child = layoutManager.findViewByPosition(targetPosition)
         if (child == null) {
             Log.d(
-                "RecyclerView=",
+                TAG,
                 "Child Null at $targetPosition"
             )
             return

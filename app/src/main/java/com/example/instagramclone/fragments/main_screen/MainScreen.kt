@@ -74,7 +74,7 @@ class MainScreen() : Fragment() {
             addOnScrollListener(object : OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        customExoPlayer.playVideo(layoutManager as LinearLayoutManager)
+                        customExoPlayer.playVideo(recyclerView.layoutManager as LinearLayoutManager)
                     }
                 }
             })
