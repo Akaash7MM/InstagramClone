@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="false"
-        android:drawable="@drawable/bt_style"/>
+        android:drawable="@drawable/bt_style_false"/>
     <item android:state_pressed="true"
-        android:drawable="@drawable/bt_style_pressed"/>
+        android:drawable="@drawable/bt_style_true"/>
 </selector>

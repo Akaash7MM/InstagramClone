@@ -5,11 +5,11 @@
         android:id="@+id/new_post"
         android:title="new post"
         app:showAsAction="always"
-        android:icon="@drawable/add_post_resized"/>
+        android:icon="@drawable/ic_add_post_resized_22"/>
     <item
         android:id="@+id/messages"
         android:title="messages"
         app:showAsAction="always"
-        android:icon="@drawable/ham_resized"/>
+        android:icon="@drawable/ic_options_ham_22"/>
 
 </menu>

@@ -24,36 +24,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:src="@drawable/logo"
+            android:src="@drawable/ic_instagram_logo"
             android:contentDescription="instalogo" />
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView2"
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/rvPosts"
+        android:layout_marginTop="45dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/my_toolbar">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvStories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvPosts"
-                android:layout_marginBottom="45dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        android:layout_height="match_parent" />
 
 
 

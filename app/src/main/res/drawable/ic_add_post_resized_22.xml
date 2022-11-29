@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:drawable="@drawable/addiconnew"
+        android:drawable="@drawable/ic_add_post_false"
         android:width="22dp"
         android:height="22dp" />
 

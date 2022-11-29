@@ -3,26 +3,26 @@
     <item
         android:id="@+id/mainFragment"
         android:title="Home"
-        android:icon="@drawable/home_switch"
+        android:icon="@drawable/ic_home_selector"
         />
     <item
         android:id="@+id/searchFragment"
         android:title="Search"
-        android:icon="@drawable/mag_switch"
+        android:icon="@drawable/ic_mag_selector"
         />
     <item
         android:id="@+id/reelsFragment"
         android:title="Contact"
-        android:icon="@drawable/add_switch"
+        android:icon="@drawable/ic_add_post_selector"
         />
     <item
         android:id="@+id/activity"
         android:title="Activity"
-        android:icon="@drawable/heart_switch"
+        android:icon="@drawable/ic_heart_512_selector"
         />
     <item
         android:id="@+id/profileFragment"
         android:title="Message"
-        android:icon="@drawable/profile"
+        android:icon="@drawable/ic_profile"
         />
 </menu>
