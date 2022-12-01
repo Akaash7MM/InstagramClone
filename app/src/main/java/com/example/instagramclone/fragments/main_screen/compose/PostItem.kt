@@ -9,12 +9,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -34,37 +34,42 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.media3.exoplayer.ExoPlayer
 import coil.compose.AsyncImage
 import com.example.domain.entities.Post
 import com.example.instagramclone.R.drawable
 
 @Composable
-fun PostItem(postItem: Post) {
-    val modifier = Modifier
-
+fun PostItem(
+    modifier: Modifier = Modifier,
+    postItem: Post,
+    savePost: () -> Unit,
+    exoPlayer: ExoPlayer,
+    currentVisibleItem: Int,
+    index: Int
+) {
     Surface(
         modifier = modifier.fillMaxSize(),
         color = Color.White
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
         ) {
-            PostTopbar(postItem = postItem, modifier = modifier)
-            Box(
-                modifier = modifier.fillMaxWidth()
-                    .wrapContentHeight(),
-                contentAlignment = Alignment.Center
-
-            ) {
-                AsyncImage(
-                    modifier = modifier,
-                    placeholder = painterResource(id = drawable.bg_placeholder),
-                    model = postItem.imgUrlNormal,
-                    contentDescription = "user post"
-                )
+            PostTopbar(postItem = postItem, modifier = Modifier)
+            when (postItem.isVideo) {
+                true -> ExoPlayerComposable(exoPlayer = exoPlayer, postItem = postItem, currentVisibleItem = currentVisibleItem, index = index)
+                false -> {
+                    AsyncImage(
+                        modifier = Modifier,
+                        placeholder = painterResource(id = drawable.bg_placeholder),
+                        model = postItem.imgUrlOriginal,
+                        contentDescription = "user post"
+                    )
+                }
             }
-            PostBottomBar(postItem = postItem, modifier = modifier)
+
+            PostBottomBar(savePost = { savePost() })
 
             Text(
                 modifier = modifier
@@ -100,7 +105,7 @@ fun PostItem(postItem: Post) {
 }
 
 @Composable
-fun PostBottomBar(postItem: Post, modifier: Modifier) {
+fun PostBottomBar(savePost: () -> Unit) {
     var isPostLiked by remember {
         mutableStateOf(false)
     }
@@ -109,117 +114,115 @@ fun PostBottomBar(postItem: Post, modifier: Modifier) {
     }
 
     Row(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .height(45.dp),
+            .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceEvenly
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Image(
-            modifier = modifier
-                .padding(start = 15.dp)
-                .clickable(interactionSource = MutableInteractionSource(), indication = null) {
+        Row() {
+            BottomBarIcon(
+                onClick = {
                     isPostLiked = !isPostLiked
                 },
-            painter = painterResource(
-                id = if (isPostLiked) {
-                    drawable.ic_heart_64_true
-                } else {
-                    drawable.ic_heart_64_false
-                }
-            ),
-            contentDescription = "heart"
-
-        )
-        Image(
-            modifier = modifier
-                .padding(start = 20.dp)
-                .wrapContentSize()
-                .clickable(indication = null, interactionSource = MutableInteractionSource()) {
-                },
-            painter = painterResource(id = drawable.ic_comment),
-            contentDescription = "comment"
-        )
-
-        Image(
-            modifier = modifier
-                .padding(start = 20.dp)
-                .wrapContentSize()
-                .clickable {
-                },
-            painter = painterResource(id = drawable.ic_share),
-            contentDescription = "share"
-        )
-
-        Box(
-            modifier = modifier.fillMaxWidth(),
-            contentAlignment = Alignment.CenterEnd
-        ) {
-            Image(
-                modifier = modifier
-                    .padding(end = 15.dp)
-                    .clickable(interactionSource = MutableInteractionSource(), indication = null) {
-                        isPostSaved = !isPostSaved
-                    },
                 painter = painterResource(
-                    id = if (isPostSaved) {
-                        drawable.ic_save_true
+                    id = if (isPostLiked) {
+                        drawable.ic_heart_64_true
                     } else {
-                        drawable.ic_save_false
+                        drawable.ic_heart_64_false
                     }
-                ),
-                contentDescription = "save"
+                )
+            )
+            BottomBarIcon(
+                onClick = { },
+                painter = painterResource(id = drawable.ic_comment)
+            )
 
+            BottomBarIcon(
+                onClick = { },
+                painter = painterResource(id = drawable.ic_share)
             )
         }
+        BottomBarIcon(
+            onClick = {
+                isPostSaved = !isPostSaved
+                savePost()
+            },
+            painter = painterResource(
+                id = if (isPostSaved) {
+                    drawable.ic_save_true
+                } else {
+                    drawable.ic_save_false
+                }
+            )
+        )
     }
 }
 
 @Composable
-fun PostTopbar(postItem: Post, modifier: Modifier) {
+fun BottomBarIcon(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    painter: Painter
+) {
+    Icon(
+        modifier = modifier
+            .padding(horizontal = 8.dp)
+            .clickable(interactionSource = MutableInteractionSource(), indication = null) {
+                onClick()
+            },
+        painter = painter,
+        contentDescription = "BottomBarIcon"
+
+    )
+}
+
+@Composable
+fun PostTopbar(postItem: Post, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(55.dp),
+            .padding(vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Box(
-            modifier = modifier
-                .wrapContentSize()
-                .padding(horizontal = 10.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(
-                modifier = modifier
-                    .size(35.dp),
-                painter = painterResource(id = drawable.ic_story_border_rainbow),
-                contentDescription = "story border"
-            )
-            AsyncImage(
-                modifier = modifier
-                    .size(30.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop,
-                placeholder = painterResource(id = drawable.bg_placeholder),
-                model = postItem.imgUrlNormal,
-                contentDescription = "profile image"
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(horizontal = 10.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    modifier = Modifier
+                        .size(35.dp),
+                    painter = painterResource(id = drawable.ic_story_border_rainbow),
+                    contentDescription = "story border"
+                )
+                AsyncImage(
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop,
+                    placeholder = painterResource(id = drawable.bg_placeholder),
+                    model = if (postItem.isVideo) {
+                        postItem.videoImg
+                    } else {
+                        postItem.imgUrlNormal
+                    },
+                    contentDescription = "profile image"
+                )
+            }
+            Text(
+                modifier = Modifier,
+                text = postItem.userName
             )
         }
-        Text(
-            modifier = modifier,
-            text = postItem.userName
+        Image(
+            modifier = Modifier
+                .size(20.dp),
+            painter = painterResource(id = drawable.ic_vertical_ellipsis),
+            contentDescription = "vertical ellipsis"
         )
-        Box(
-            modifier = modifier
-                .fillMaxWidth(),
-            Alignment.CenterEnd
-        ) {
-            Image(
-                modifier = modifier.size(20.dp),
-                painter = painterResource(id = drawable.ic_vertical_ellipsis),
-                contentDescription = "vertical ellipsis"
-            )
-        }
     }
 }
