@@ -1,16 +1,16 @@
 package com.example.instagramclone.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.collectAsState
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.instagramclone.databinding.FragmentMainScreenBinding
 import com.example.instagramclone.fragments.main_screen.MainScreenState
-import com.example.instagramclone.fragments.main_screen.compose.PostItem
+import com.example.instagramclone.fragments.main_screen.compose.MainScreenComposable
 import com.example.instagramclone.util.collectLatestLifecycleFlow
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +19,7 @@ class MainScreen() : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private val mainScreenViewModel by viewModels<MainScreenViewModel>()
+    val TAG = "MainScreen"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,12 +34,13 @@ class MainScreen() : Fragment() {
         collectLatestLifecycleFlow(mainScreenViewModel.uiState) { result ->
             when (result) {
                 is MainScreenState.Success -> {
-                    binding.rvPosts.setContent {
-                        LazyColumn {
-                            items(result.postList) { postItem ->
-                                PostItem(postItem)
+                    binding.composeView.setContent {
+                        MainScreenComposable(
+                            postList = result.postList,
+                            savePost = { item ->
+                                mainScreenViewModel.savePost(item)
                             }
-                        }
+                        )
                     }
                 }
                 is MainScreenState.Failure -> {

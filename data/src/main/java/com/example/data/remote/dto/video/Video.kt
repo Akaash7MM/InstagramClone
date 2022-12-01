@@ -41,7 +41,9 @@ fun Video.toPostEntity(): PostEntity {
         imgUrlsmall = image,
         imgUrlOriginal = "",
         videoImg = image,
-        videoPreview = video_pictures.first().picture
+        videoPreview = video_pictures.first().picture,
+        photoWidth = 0,
+        photoHeight = 0
 
     )
 }

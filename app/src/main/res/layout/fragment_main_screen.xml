@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/white"
-        android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,11 +27,14 @@
             android:contentDescription="instalogo" />
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/rvPosts"
-        android:layout_marginTop="45dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/composeView"
+                android:layout_marginTop="45dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+
 
 
 

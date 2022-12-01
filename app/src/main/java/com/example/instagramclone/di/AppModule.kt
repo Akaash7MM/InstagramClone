@@ -114,15 +114,6 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providesExoplayer(
-        @ApplicationContext applicationContext: Context
-    ): ExoPlayer {
-        return ExoPlayer.Builder(applicationContext)
-            .build()
-    }
-
-    @Provides
-    @Singleton
     fun providesPostApi(authRetrofit: Retrofit): PostApi {
         return authRetrofit.create(PostApi::class.java)
     }

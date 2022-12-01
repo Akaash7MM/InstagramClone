@@ -34,6 +34,8 @@ fun Photo.toPostEntity(): PostEntity {
         imgUrlsmall = src.tiny,
         contentDesc = alt,
         userName = photographer,
+        photoHeight = height,
+        photoWidth = width,
         videoUrlSD = "",
         videoUrlHD = "",
         videoImg = "",
