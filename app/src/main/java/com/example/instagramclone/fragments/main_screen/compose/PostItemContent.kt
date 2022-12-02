@@ -19,13 +19,17 @@ import com.example.domain.entities.Post
 import com.example.instagramclone.R.drawable
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
-fun PostItemContent(exoPlayer: ExoPlayer, postItem: Post, currentVisibleItem: Int, index: Int) {
+fun PostItemContent(
+    exoPlayer: ExoPlayer,
+    postItem: Post,
+    isVisible: Boolean
+) {
     Box(
         modifier = Modifier.fillMaxWidth()
             .wrapContentHeight(),
         contentAlignment = Alignment.Center
     ) {
-        Crossfade(targetState = (index == currentVisibleItem) && postItem.isVideo) { showVideo ->
+        Crossfade(targetState = isVisible && postItem.isVideo) { showVideo ->
             if (showVideo) {
                 AndroidView(
                     modifier = Modifier.fillMaxWidth()

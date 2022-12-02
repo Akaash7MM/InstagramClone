@@ -45,8 +45,7 @@ fun PostItem(
     postItem: Post,
     savePost: () -> Unit,
     exoPlayer: ExoPlayer,
-    currentVisibleItem: Int,
-    index: Int
+    isVisible: Boolean
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -57,7 +56,7 @@ fun PostItem(
                 .fillMaxSize()
         ) {
             PostTopbar(postItem = postItem, modifier = Modifier)
-            PostItemContent(exoPlayer = exoPlayer, postItem = postItem, currentVisibleItem = currentVisibleItem, index = index)
+            PostItemContent(exoPlayer = exoPlayer, postItem = postItem, isVisible = isVisible)
             PostBottomBar(savePost = { savePost() })
             Text(
                 modifier = modifier

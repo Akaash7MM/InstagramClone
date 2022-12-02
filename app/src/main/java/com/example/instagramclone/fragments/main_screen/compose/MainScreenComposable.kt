@@ -1,6 +1,5 @@
 package com.example.instagramclone.fragments.main_screen.compose
 
-import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -31,17 +30,18 @@ fun MainScreenComposable(
     }
 
     LaunchedEffect(key1 = visibleItem.value) {
-        exoPlayer.setMediaItem(MediaItem.fromUri(postList.get((visibleItem.value)).videoUrlHD))
-        Log.d(TAG, visibleItem.value.toString())
-        exoPlayer.prepare()
-
-        exoPlayer.playWhenReady = true
+        val post = postList[visibleItem.value]
+        if (post.isVideo) {
+            exoPlayer.setMediaItem(MediaItem.fromUri(post.videoUrlHD))
+            exoPlayer.prepare()
+            exoPlayer.playWhenReady = true
+        }
     }
     Scaffold(topBar = {
         MainTopBar()
-    }) {
+    }) { paddingValues ->
         LazyColumn(
-            modifier = Modifier.padding(it),
+            modifier = Modifier.padding(paddingValues),
             state = lazyColumnState
         ) {
             item {
@@ -49,13 +49,12 @@ fun MainScreenComposable(
             }
             itemsIndexed(postList) { index, postItem ->
                 PostItem(
-                    index = index,
                     postItem = postItem,
                     savePost = {
                         savePost(postItem)
                     },
                     exoPlayer = exoPlayer,
-                    currentVisibleItem = visibleItem.value
+                    isVisible = index == visibleItem.value
                 )
             }
         }
