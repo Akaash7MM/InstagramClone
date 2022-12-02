@@ -38,7 +38,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import coil.compose.AsyncImage
 import com.example.domain.entities.Post
 import com.example.instagramclone.R.drawable
-
+@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
 fun PostItem(
     modifier: Modifier = Modifier,
@@ -57,20 +57,8 @@ fun PostItem(
                 .fillMaxSize()
         ) {
             PostTopbar(postItem = postItem, modifier = Modifier)
-            when (postItem.isVideo) {
-                true -> ExoPlayerComposable(exoPlayer = exoPlayer, postItem = postItem, currentVisibleItem = currentVisibleItem, index = index)
-                false -> {
-                    AsyncImage(
-                        modifier = Modifier,
-                        placeholder = painterResource(id = drawable.bg_placeholder),
-                        model = postItem.imgUrlOriginal,
-                        contentDescription = "user post"
-                    )
-                }
-            }
-
+            PostItemContent(exoPlayer = exoPlayer, postItem = postItem, currentVisibleItem = currentVisibleItem, index = index)
             PostBottomBar(savePost = { savePost() })
-
             Text(
                 modifier = modifier
                     .padding(horizontal = 15.dp),
