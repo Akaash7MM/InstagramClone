@@ -1,3 +1,5 @@
+package com.example.instagramclone.fragments.main_screen
+
 import com.example.domain.entities.Post
 
 sealed class MainScreenState {

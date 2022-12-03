@@ -1,6 +1,8 @@
 package com.example.instagramclone
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -19,10 +21,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setStatusBarColor(SurfaceColors.SURFACE_5.getColor(this))
-
+        window.statusBarColor = SurfaceColors.SURFACE_5.getColor(this)
         val navHostFragment = binding.fragmentContainerView.getFragment<NavHostFragment>()
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.loginFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.initialFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.signupFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                else -> {
+                    binding.bottomNavigationView.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 }

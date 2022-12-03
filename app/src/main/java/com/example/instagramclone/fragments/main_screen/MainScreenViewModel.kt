@@ -1,12 +1,12 @@
 package com.example.instagramclone.fragments
 
-import MainScreenState
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.domain.entities.Post
 import com.example.domain.usecases.GetPostUseCase
 import com.example.domain.usecases.GetSavePostUseCase
 import com.example.domain.util.Resource
+import com.example.instagramclone.fragments.main_screen.MainScreenState
 import com.example.instagramclone.util.ioScope
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

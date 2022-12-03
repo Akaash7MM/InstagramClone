@@ -1,6 +1,5 @@
 package com.example.instagramclone.fragments
 
-import MainScreenState
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.instagramclone.adapters.PostsAdapter
 import com.example.instagramclone.adapters.StoriesAdapter
 import com.example.instagramclone.databinding.FragmentMainScreenBinding
+import com.example.instagramclone.fragments.main_screen.MainScreenState
 import com.example.instagramclone.util.collectLatestLifecycleFlow
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,6 +40,7 @@ class MainScreen() : Fragment() {
         val postsAdapter = PostsAdapter(onSaveTap = { tappedPost ->
             mainScreenViewModel.savePost(post = tappedPost)
         }, onImageClick = {
+            Firebase.auth.signOut()
 //            binding.rvPosts.scrollToPosition(5)
                 binding.nestedScrollView2.smoothScrollTo(0, 1000, 5000)
             })
