@@ -10,13 +10,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,17 +23,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.instagramclone.R.drawable
 import com.example.instagramclone.fragments.compose.components.GreyTextField
 import com.example.instagramclone.fragments.login_screen.LoginViewModel
-import com.example.instagramclone.fragments.ui.theme.EtGrey
 import com.example.instagramclone.fragments.ui.theme.FBlue
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Preview
 @Composable
 fun LoginScreenComposable() {
@@ -106,8 +98,6 @@ fun ClickableText(modifier: Modifier = Modifier, text: String, color: Color = Co
     Text(
         text,
         color = color,
-        modifier = modifier.clickable(interactionSource = MutableInteractionSource(), indication = null) {
-            onClick()
-        }
+        modifier = modifier.clickable(interactionSource = MutableInteractionSource(), indication = null, onClick = onClick)
     )
 }

@@ -1,7 +1,6 @@
 package com.example.instagramclone
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -35,6 +34,9 @@ class MainActivity : AppCompatActivity() {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
                 R.id.signupFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.messageFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
                 else -> {

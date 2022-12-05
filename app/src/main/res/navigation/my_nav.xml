@@ -16,19 +16,18 @@
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.instagramclone.fragments.MainScreen"
-        android:label="fragment_main_screen"
-        tools:layout="@layout/fragment_main_screen">
-        <argument
-            android:name="id"
-            app:argType="integer"
-            android:defaultValue="0" />
-        <action
-            android:id="@+id/action_mainFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-    </fragment>
+        <fragment
+            android:id="@+id/mainFragment"
+            android:name="com.example.instagramclone.fragments.MainScreen"
+            android:label="fragment_main_screen"
+            tools:layout="@layout/fragment_main_screen">
+            <action
+                android:id="@+id/action_mainScreen_to_searchScreen"
+                app:destination="@id/searchFragment" />
+            <action
+                android:id="@+id/action_mainScreen_to_messageFragment"
+                app:destination="@id/messageFragment" />
+        </fragment>
         <fragment
             android:id="@+id/searchFragment"
             android:name="com.example.instagramclone.fragments.SearchScreen"
@@ -50,6 +49,11 @@
         <action
             android:id="@+id/action_initialFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.example.instagramclone.fragments.message_screen.MessageFragment"
+        android:label="MessageFragment" >
     </fragment>
     <fragment
         android:id="@+id/signupFragment"

@@ -67,8 +67,8 @@ class SignupFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             loginViewModel.userCreated.collect() {
                 if (it) {
-                    withContext(Dispatchers.Main){
-                       navController.navigate(R.id.action_signupFragment_to_mainScreen)
+                    withContext(Dispatchers.Main) {
+                        navController.navigate(R.id.action_signupFragment_to_mainScreen)
                     }
                 }
             }
