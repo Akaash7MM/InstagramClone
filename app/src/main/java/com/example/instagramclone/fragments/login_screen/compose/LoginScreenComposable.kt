@@ -27,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.instagramclone.R.drawable
 import com.example.instagramclone.fragments.compose.components.GreyTextField
 import com.example.instagramclone.fragments.login_screen.LoginViewModel
+import com.example.instagramclone.fragments.ui.theme.EtGrey
 import com.example.instagramclone.fragments.ui.theme.FBlue
 
 @Preview
@@ -53,6 +54,7 @@ fun LoginScreenComposable() {
         GreyTextField(
             text = username.value,
             hintText = "Phone number,username, or email",
+            backgroundColor = MaterialTheme.colors.EtGrey,
             onValueChange = {
                 username.value = it
             }
@@ -61,6 +63,7 @@ fun LoginScreenComposable() {
         GreyTextField(
             text = password.value,
             hintText = "Password",
+            backgroundColor = MaterialTheme.colors.EtGrey,
             onValueChange = {
                 password.value = it
             }

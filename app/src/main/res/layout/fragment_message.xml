@@ -34,12 +34,15 @@
                 android:id="@+id/editText"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/et_style_dark_gray"
-                android:drawableStart="@drawable/ic_mag_resized"
                 android:clickable="true"
-                android:hint="Search"
+                android:drawableStart="@drawable/ic_mag_resized"
                 android:drawablePadding="20dp"
+                android:hint="Search"
                 android:padding="10dp" />
 
             <ImageView

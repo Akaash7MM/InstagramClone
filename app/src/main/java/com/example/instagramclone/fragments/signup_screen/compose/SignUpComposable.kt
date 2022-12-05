@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
@@ -20,16 +18,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextAlign.Companion
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.instagramclone.R.drawable
 import com.example.instagramclone.fragments.compose.components.GreyTextField
 import com.example.instagramclone.fragments.login_screen.compose.ClickableText
+import com.example.instagramclone.fragments.ui.theme.EtGrey
 import com.example.instagramclone.fragments.ui.theme.FBlue
 
 @Preview
@@ -62,6 +59,7 @@ fun SignUpComposable() {
         GreyTextField(
             text = "",
             hintText = "Phone number,username, or email",
+            backgroundColor = MaterialTheme.colors.EtGrey,
             onValueChange = {
             }
         )
@@ -69,6 +67,7 @@ fun SignUpComposable() {
         GreyTextField(
             text = "",
             hintText = "Full Name",
+            backgroundColor = MaterialTheme.colors.EtGrey,
             onValueChange = {
             }
         )
@@ -76,6 +75,7 @@ fun SignUpComposable() {
         GreyTextField(
             text = "",
             hintText = "Username",
+            backgroundColor = MaterialTheme.colors.EtGrey,
             onValueChange = {
             }
         )
@@ -83,6 +83,7 @@ fun SignUpComposable() {
         GreyTextField(
             text = "",
             hintText = "Password",
+            backgroundColor = MaterialTheme.colors.EtGrey,
             onValueChange = {
             }
         )
