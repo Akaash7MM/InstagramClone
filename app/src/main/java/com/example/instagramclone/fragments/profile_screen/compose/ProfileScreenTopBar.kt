@@ -28,7 +28,7 @@ fun ProfileScreenTopBar() {
             MenuItems()
         },
         backgroundColor = Color.White,
-        elevation = 0.dp
+        elevation = 1.dp
     )
 }
 

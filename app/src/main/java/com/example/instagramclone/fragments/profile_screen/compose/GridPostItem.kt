@@ -9,10 +9,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.domain.entities.Post
 import com.example.instagramclone.R.drawable
 
 @Composable
-fun GridPostItem() {
+fun GridPostItem(savedPostItem: Post) {
     AsyncImage(
         modifier = Modifier
             .padding(1.dp)
@@ -20,7 +21,7 @@ fun GridPostItem() {
             .clickable { },
         contentScale = ContentScale.Crop,
         placeholder = painterResource(id = drawable.bg_placeholder),
-        model = "https://images.pexels.com/photos/14072809/pexels-photo-14072809.jpeg",
+        model = savedPostItem.imgUrlOriginal,
         contentDescription = "profile image"
     )
 }

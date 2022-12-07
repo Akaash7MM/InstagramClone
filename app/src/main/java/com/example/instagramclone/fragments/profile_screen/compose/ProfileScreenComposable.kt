@@ -1,5 +1,7 @@
 package com.example.instagramclone.fragments.profile_screen.compose
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,6 +20,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -26,46 +29,70 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.instagramclone.R.drawable
+import com.example.instagramclone.fragments.compose.components.BottomBar
+import com.example.instagramclone.fragments.profile_screen.ProfileScreenState
+import com.example.instagramclone.fragments.profile_screen.ProfileScreenState.Success
+import com.example.instagramclone.fragments.profile_screen.ProfileScreenViewModel
 import com.example.instagramclone.fragments.ui.theme.EtGrey2
 
-@Preview
+@OptIn(ExperimentalLifecycleComposeApi::class, ExperimentalAnimationApi::class)
 @Composable
-fun ProfileScreenComposable() {
-    Scaffold(topBar = {
-        ProfileScreenTopBar()
-    }) { paddingValues ->
-        LazyVerticalGrid(
-            modifier = Modifier
-                .padding(paddingValues)
-                .fillMaxSize(),
-            columns = GridCells.Fixed(3)
-        ) {
-            item(span = {
-                GridItemSpan(3)
-            }) {
-                ProfileDetailSection()
-            }
-            item(span = {
-                GridItemSpan(3)
-            }) {
-                EditProfileButtons()
-            }
+fun ProfileScreenComposable(
+    navController: NavHostController,
+    profileScreenViewModel: ProfileScreenViewModel = hiltViewModel()
+) {
+    val profileState by profileScreenViewModel.uiState.collectAsStateWithLifecycle()
+    when (profileState) {
+        is ProfileScreenState.Success -> {
+            AnimatedContent(profileState) {
+                Scaffold(
+                    topBar = {
+                        ProfileScreenTopBar()
+                    },
+                    bottomBar = {
+                        BottomBar(navHostController = navController)
+                    }
+                ) { paddingValues ->
+                    LazyVerticalGrid(
+                        modifier = Modifier
+                            .padding(paddingValues)
+                            .fillMaxSize(),
+                        columns = GridCells.Fixed(3)
+                    ) {
+                        item(span = {
+                            GridItemSpan(3)
+                        }) {
+                            ProfileDetailSection()
+                        }
+                        item(span = {
+                            GridItemSpan(3)
+                        }) {
+                            EditProfileButtons()
+                        }
 
-            items(12) {
-                GridPostItem()
+                        items((profileState as Success).savedPostList) { savedPostItem ->
+                            GridPostItem(savedPostItem)
+                        }
+                    }
+                }
             }
         }
+        else -> Unit
     }
 }
 

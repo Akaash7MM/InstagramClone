@@ -15,13 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.instagramclone.R.drawable
 
-@Preview
 @Composable
-fun MessagesTopBar() {
+fun MessagesTopBar(navController: NavHostController) {
     TopAppBar(
         title = {
             Text(text = "Username", fontWeight = FontWeight.Bold)
@@ -29,6 +28,7 @@ fun MessagesTopBar() {
         navigationIcon = {
             IconButton(
                 onClick = {
+                    navController.popBackStack()
                 }
             ) {
                 Icon(
@@ -41,7 +41,8 @@ fun MessagesTopBar() {
         actions = {
             MenuItems()
         },
-        backgroundColor = Color.White
+        backgroundColor = Color.White,
+        elevation = 1.dp
     )
 }
 

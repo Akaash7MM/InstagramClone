@@ -19,14 +19,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.domain.entities.Message
 import com.example.instagramclone.R.drawable
 
-@Preview
 @Composable
-fun MessageItem() {
+fun MessageItem(messageItem: Message) {
     Row(
         modifier = Modifier
             .height(74.dp)
@@ -51,7 +50,7 @@ fun MessageItem() {
                         .clip(CircleShape),
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(id = drawable.bg_placeholder),
-                    model = "https://images.pexels.com/photos/14072809/pexels-photo-14072809.jpeg",
+                    model = "https://picsum.photos/id/${messageItem.id + 10}/500/500",
                     contentDescription = "profile image"
                 )
             }
@@ -61,8 +60,8 @@ fun MessageItem() {
                     .padding(horizontal = 12.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                Text("Username")
-                Text("Sent 10m ago", color = Color.Gray)
+                Text(messageItem.name)
+                Text(messageItem.message, color = Color.Gray)
             }
         }
 

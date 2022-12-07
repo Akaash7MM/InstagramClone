@@ -10,13 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.instagramclone.R.drawable
 
-@Preview
 @Composable
-fun MainTopBar() {
+fun MainTopBar(onMessagesClick: () -> Unit) {
     TopAppBar(
         title = {
             Image(
@@ -26,7 +24,7 @@ fun MainTopBar() {
             )
         },
         actions = {
-            MenuItems()
+            MenuItems(onMessagesClick = { onMessagesClick() })
         },
         backgroundColor = Color.White,
         elevation = 1.dp
@@ -34,7 +32,7 @@ fun MainTopBar() {
 }
 
 @Composable
-fun MenuItems() {
+fun MenuItems(onMessagesClick:() -> Unit) {
     Image(
         modifier = Modifier.size(22.dp),
         painter = painterResource(id = drawable.ic_add_post_false),
@@ -45,6 +43,7 @@ fun MenuItems() {
         modifier = Modifier
             .size(22.dp)
             .clickable {
+                onMessagesClick()
             },
         painter = painterResource(id = drawable.ic_messenger),
         contentDescription = "messenger"

@@ -8,13 +8,17 @@ val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 
-val LGrey = Color(0xFFFAFAFA)
 val FbBlue = Color(0xFF0095FF)
+val FbBlue2 = Color(0xFFB2DFFC)
+val LGrey = Color(0xFFFAFAFA)
 val LGrey2 = Color(0xFFEFEFEF)
 
 val Colors.EtGrey
     get() = LGrey
-val Colors.FBlue
-    get() = FbBlue
 val Colors.EtGrey2
     get() = LGrey2
+val Colors.FBlue
+    get() = FbBlue
+val Colors.FBlue2
+    get() = FbBlue2
+
