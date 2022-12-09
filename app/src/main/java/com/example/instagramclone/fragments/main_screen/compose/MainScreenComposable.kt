@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Scaffold
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -27,7 +28,11 @@ import com.example.instagramclone.fragments.compose.components.BottomBar
 import com.example.instagramclone.fragments.main_screen.MainScreenState
 import com.example.instagramclone.util.Screen
 
-@OptIn(ExperimentalLifecycleComposeApi::class, ExperimentalAnimationApi::class)
+@OptIn(
+    ExperimentalLifecycleComposeApi::class,
+    ExperimentalAnimationApi::class,
+    ExperimentalMaterial3WindowSizeClassApi::class
+)
 @Composable
 fun MainScreenComposable(
     navController: NavHostController,

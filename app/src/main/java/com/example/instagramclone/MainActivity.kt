@@ -3,8 +3,9 @@ package com.example.instagramclone
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.instagramclone.fragments.Navigation
 import com.example.instagramclone.fragments.ui.theme.InstagramCloneTheme
 import com.google.android.material.elevation.SurfaceColors
@@ -16,14 +17,15 @@ class MainActivity : AppCompatActivity() {
 //    private lateinit var binding: ActivityMainBinding
     lateinit var navController: NavHostController
 
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.statusBarColor = SurfaceColors.SURFACE_5.getColor(this)
 
         setContent {
             InstagramCloneTheme() {
-                navController = rememberNavController()
-                Navigation(navController = navController)
+                val windowSize = calculateWindowSizeClass(this)
+                Navigation(windowSize = windowSize.widthSizeClass)
             }
         }
 

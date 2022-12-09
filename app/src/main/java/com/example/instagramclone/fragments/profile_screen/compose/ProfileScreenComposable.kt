@@ -3,6 +3,7 @@ package com.example.instagramclone.fragments.profile_screen.compose
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -21,6 +22,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -28,8 +30,11 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.movableContentOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,7 +59,8 @@ import com.example.instagramclone.fragments.ui.theme.EtGrey2
 @Composable
 fun ProfileScreenComposable(
     navController: NavHostController,
-    profileScreenViewModel: ProfileScreenViewModel = hiltViewModel()
+    profileScreenViewModel: ProfileScreenViewModel = hiltViewModel(),
+    windowSize: WindowWidthSizeClass
 ) {
     val profileState by profileScreenViewModel.uiState.collectAsStateWithLifecycle()
     when (profileState) {
@@ -68,25 +74,50 @@ fun ProfileScreenComposable(
                         BottomBar(navHostController = navController)
                     }
                 ) { paddingValues ->
-                    LazyVerticalGrid(
-                        modifier = Modifier
-                            .padding(paddingValues)
-                            .fillMaxSize(),
-                        columns = GridCells.Fixed(3)
-                    ) {
-                        item(span = {
-                            GridItemSpan(3)
-                        }) {
-                            ProfileDetailSection()
-                        }
-                        item(span = {
-                            GridItemSpan(3)
-                        }) {
-                            EditProfileButtons()
-                        }
 
-                        items((profileState as Success).savedPostList) { savedPostItem ->
-                            GridPostItem(savedPostItem)
+                    if (windowSize == WindowWidthSizeClass.Expanded) {
+                        Row(
+                            modifier = Modifier
+                                .padding(paddingValues)
+                                .fillMaxSize()
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .weight(0.20f)
+                            ) {
+                                ProfileDetailSection(windowSize)
+                                EditProfileButtons()
+                            }
+                            LazyVerticalGrid(
+                                modifier = Modifier.weight(0.80f),
+                                columns = GridCells.Fixed(5)
+                            ) {
+                                item(span = { GridItemSpan(5) }) { PostsIcon() }
+                                items(items = (profileState as Success).savedPostList) { savedPostItem ->
+                                    GridPostItem(savedPostItem)
+                                }
+                            }
+                        }
+                    } else {
+                        LazyVerticalGrid(
+                            modifier = Modifier
+                                .padding(paddingValues)
+                                .fillMaxSize(),
+                            columns = GridCells.Fixed(3)
+                        ) {
+                            item(span = { GridItemSpan(3) }) {
+                                ProfileDetailSection(windowSize)
+                            }
+                            item(span = { GridItemSpan(3) }) {
+                                EditProfileButtons()
+                            }
+                            item(span = { GridItemSpan(3) }) {
+                                PostsIcon()
+                            }
+
+                            items(items = (profileState as Success).savedPostList) { savedPostItem ->
+                                GridPostItem(savedPostItem)
+                            }
                         }
                     }
                 }
@@ -103,7 +134,7 @@ fun EditProfileButtons() {
             modifier = Modifier
                 .padding(8.dp)
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Button(
                 modifier = Modifier
@@ -131,61 +162,93 @@ fun EditProfileButtons() {
                 Image(modifier = Modifier.size(18.dp), painter = painterResource(id = drawable.ic_person_plus), contentDescription = "")
             }
         }
-        Box(
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(
-                modifier = Modifier.size(24.dp),
-                painter = painterResource(id = drawable.ic_post_grid_staggered),
-                contentDescription = ""
-            )
-        }
     }
 }
 
 @Composable
-fun ProfileDetailSection() {
+fun PostsIcon() {
+    Box(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            modifier = Modifier.size(24.dp),
+            painter = painterResource(id = drawable.ic_post_grid_staggered),
+            contentDescription = ""
+        )
+    }
+}
+
+@Composable
+fun ProfileDetailSection(windowSize: WindowWidthSizeClass) {
+    val movableProfileDetailSectionContent = remember {
+        movableContentOf {
+            ProfileDetailSectionContent()
+        }
+    }
     Column(
         modifier = Modifier
             .padding(horizontal = 12.dp)
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            AsyncImage(
-                modifier = Modifier
-                    .padding(horizontal = 12.dp)
-                    .size(84.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop,
-                placeholder = painterResource(id = drawable.bg_placeholder),
-                model = "https://images.pexels.com/photos/14072809/pexels-photo-14072809.jpeg",
-                contentDescription = "profile image"
-            )
-            ProfileDetailItem(
-                modifier = Modifier.weight(1f),
-                count = "12",
-                itemType = "Posts"
-            )
-            ProfileDetailItem(
-                modifier = Modifier.weight(1f),
-                count = "273",
-                itemType = "Followers"
-            )
-            ProfileDetailItem(
-                modifier = Modifier.weight(1f),
-                count = "543",
-                itemType = "Following"
-            )
+        if (windowSize > WindowWidthSizeClass.Medium) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
+                movableProfileDetailSectionContent()
+            }
+        } else {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                movableProfileDetailSectionContent()
+            }
         }
-        Text("Full Name text here", fontWeight = FontWeight.Bold)
-        Text("Sample Bio text")
+    }
+}
+
+@Composable
+fun ProfileDetailSectionContent() {
+    Column() {
+        AsyncImage(
+            modifier = Modifier
+                .padding(horizontal = 12.dp)
+                .size(84.dp)
+                .clip(CircleShape),
+            contentScale = ContentScale.Crop,
+            placeholder = painterResource(id = drawable.bg_placeholder),
+            model = "https://images.pexels.com/photos/14072809/pexels-photo-14072809.jpeg",
+            contentDescription = "profile image"
+        )
+        Text(text = "Full Name text here", fontWeight = FontWeight.Bold)
+        Text(text = "Sample Bio text")
+    }
+    Row(
+        modifier = Modifier.padding(vertical = 18.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        ProfileDetailItem(
+            modifier = Modifier.weight(1f),
+            count = "12",
+            itemType = "Posts"
+        )
+        ProfileDetailItem(
+            modifier = Modifier.weight(1f),
+            count = "273",
+            itemType = "Followers"
+        )
+        ProfileDetailItem(
+            modifier = Modifier.weight(1f),
+            count = "543",
+            itemType = "Following"
+        )
     }
 }
 
