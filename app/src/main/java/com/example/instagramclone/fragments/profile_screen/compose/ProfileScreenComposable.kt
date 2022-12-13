@@ -3,7 +3,6 @@ package com.example.instagramclone.fragments.profile_screen.compose
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -22,7 +21,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -48,6 +46,7 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.example.domain.entities.Post
 import com.example.instagramclone.R.drawable
 import com.example.instagramclone.fragments.compose.components.BottomBar
 import com.example.instagramclone.fragments.profile_screen.ProfileScreenState
@@ -74,56 +73,75 @@ fun ProfileScreenComposable(
                         BottomBar(navHostController = navController)
                     }
                 ) { paddingValues ->
-
-                    if (windowSize == WindowWidthSizeClass.Expanded) {
-                        Row(
-                            modifier = Modifier
-                                .padding(paddingValues)
-                                .fillMaxSize()
-                        ) {
-                            Column(
-                                modifier = Modifier
-                                    .weight(0.20f)
-                            ) {
-                                ProfileDetailSection(windowSize)
-                                EditProfileButtons()
-                            }
-                            LazyVerticalGrid(
-                                modifier = Modifier.weight(0.80f),
-                                columns = GridCells.Fixed(5)
-                            ) {
-                                item(span = { GridItemSpan(5) }) { PostsIcon() }
-                                items(items = (profileState as Success).savedPostList) { savedPostItem ->
-                                    GridPostItem(savedPostItem)
-                                }
-                            }
+                    when (windowSize) {
+                        WindowWidthSizeClass.Expanded -> {
+                            ProfileScreenExpanded(
+                                modifier = Modifier.padding(paddingValues),
+                                savedPostList = (profileState as Success).savedPostList,
+                                windowSize = windowSize
+                            )
                         }
-                    } else {
-                        LazyVerticalGrid(
-                            modifier = Modifier
-                                .padding(paddingValues)
-                                .fillMaxSize(),
-                            columns = GridCells.Fixed(3)
-                        ) {
-                            item(span = { GridItemSpan(3) }) {
-                                ProfileDetailSection(windowSize)
-                            }
-                            item(span = { GridItemSpan(3) }) {
-                                EditProfileButtons()
-                            }
-                            item(span = { GridItemSpan(3) }) {
-                                PostsIcon()
-                            }
+                        else -> {
+                            ProfileScreenNormal(
+                                modifier = Modifier.padding(paddingValues),
+                                savedPostList = (profileState as Success).savedPostList,
+                                windowSize = windowSize
 
-                            items(items = (profileState as Success).savedPostList) { savedPostItem ->
-                                GridPostItem(savedPostItem)
-                            }
+                            )
                         }
                     }
                 }
             }
         }
         else -> Unit
+    }
+}
+
+@Composable
+fun ProfileScreenExpanded(modifier: Modifier = Modifier, savedPostList: List<Post>, windowSize: WindowWidthSizeClass) {
+    Row(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(0.20f)
+        ) {
+            ProfileDetailSection(windowSize)
+            EditProfileButtons()
+        }
+        LazyVerticalGrid(
+            modifier = Modifier.weight(0.80f),
+            columns = GridCells.Fixed(5)
+        ) {
+            item(span = { GridItemSpan(5) }) { PostsIcon() }
+            items(items = savedPostList) { savedPostItem ->
+                GridPostItem(savedPostItem)
+            }
+        }
+    }
+}
+
+@Composable
+fun ProfileScreenNormal(modifier: Modifier = Modifier, savedPostList: List<Post>, windowSize: WindowWidthSizeClass) {
+    LazyVerticalGrid(
+        modifier = modifier
+            .fillMaxSize(),
+        columns = GridCells.Fixed(3)
+    ) {
+        item(span = { GridItemSpan(3) }) {
+            ProfileDetailSection(windowSize)
+        }
+        item(span = { GridItemSpan(3) }) {
+            EditProfileButtons()
+        }
+        item(span = { GridItemSpan(3) }) {
+            PostsIcon()
+        }
+
+        items(items = savedPostList) { savedPostItem ->
+            GridPostItem(savedPostItem)
+        }
     }
 }
 
