@@ -1,8 +1,10 @@
 package com.example.instagramclone.fragments.compose.components
 
+import androidx.compose.runtime.Immutable
 import com.example.instagramclone.R
 import com.example.instagramclone.util.Screen
 
+@Immutable
 data class BottomNavItem(
     val route: String,
     val unselectedIcon: Int,
