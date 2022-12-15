@@ -7,12 +7,10 @@ import com.example.domain.usecases.GetFetchPostsUseCase
 import com.example.domain.usecases.GetPostUseCase
 import com.example.domain.usecases.GetSavePostUseCase
 import com.example.domain.util.Resource
-import com.example.instagramclone.fragments.main_screen.MainScreenState
-import com.example.instagramclone.util.ioScope
+import com.example.instagramclone.util.ScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,7 +21,7 @@ class MainScreenViewModel @Inject constructor(
     private val fetchPostsUseCase: GetFetchPostsUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<MainScreenState>(MainScreenState.Empty)
+    private val _uiState: MutableStateFlow<ScreenState<List<Post>>> = MutableStateFlow(ScreenState.Empty)
     val uiState = _uiState.asStateFlow()
 
     init {
@@ -32,17 +30,17 @@ class MainScreenViewModel @Inject constructor(
     }
 
     fun getPostList() {
-        _uiState.value = MainScreenState.Loading
+        _uiState.value = ScreenState.Loading
         viewModelScope.launch {
             val result = postUseCase()
             when (result) {
                 is Resource.Success -> {
                     result.data.collect() { postList ->
-                        _uiState.value = MainScreenState.Success(postList.shuffled())
+                        _uiState.value = ScreenState.Success(postList.shuffled())
                     }
                 }
                 is Resource.Failure -> {
-                    _uiState.value = MainScreenState.Failure(throwable = result.throwable)
+                    _uiState.value = ScreenState.Failure(throwable = result.throwable)
                 }
             }
         }
