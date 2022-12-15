@@ -16,12 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.domain.entities.Post
+import com.example.instagramclone.R
 import com.example.instagramclone.R.drawable
+import com.example.instagramclone.R.string
 
 @Composable
 fun StoryItem(storyItem: Post) {
@@ -32,14 +35,14 @@ fun StoryItem(storyItem: Post) {
         Box(
             modifier = Modifier
                 .wrapContentSize()
-                .padding(5.dp),
+                .padding(4.dp),
             contentAlignment = Alignment.Center
         ) {
             Image(
                 modifier = Modifier
-                    .size(78.dp),
+                    .size(76.dp),
                 painter = painterResource(id = drawable.ic_story_border_rainbow),
-                contentDescription = "story border"
+                contentDescription = stringResource(id = string.story_border_icon)
             )
             AsyncImage(
                 modifier = Modifier
@@ -48,10 +51,10 @@ fun StoryItem(storyItem: Post) {
                 contentScale = ContentScale.Crop,
                 placeholder = painterResource(id = drawable.bg_placeholder),
                 model = storyItem.imgUrlsmall,
-                contentDescription = "profile image"
+                contentDescription = stringResource(id = R.string.profile_image)
             )
         }
-        Box(modifier = Modifier.width(78.dp)) {
+        Box(modifier = Modifier.width(76.dp)) {
             Text(
                 modifier = Modifier
                     .align(Alignment.Center),

@@ -2,7 +2,6 @@ package com.example.instagramclone.fragments.profile_screen.compose
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -25,6 +24,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,12 +44,13 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.example.domain.entities.Post
+import com.example.instagramclone.R
 import com.example.instagramclone.R.drawable
+import com.example.instagramclone.R.string
 import com.example.instagramclone.fragments.compose.components.BottomBar
-import com.example.instagramclone.fragments.profile_screen.ProfileScreenState
-import com.example.instagramclone.fragments.profile_screen.ProfileScreenState.Success
 import com.example.instagramclone.fragments.profile_screen.ProfileScreenViewModel
-import com.example.instagramclone.fragments.ui.theme.EtGrey2
+import com.example.instagramclone.util.ScreenState
 
 @OptIn(ExperimentalLifecycleComposeApi::class, ExperimentalAnimationApi::class)
 @Composable
@@ -58,7 +60,7 @@ fun ProfileScreenComposable(
 ) {
     val profileState by profileScreenViewModel.uiState.collectAsStateWithLifecycle()
     when (profileState) {
-        is ProfileScreenState.Success -> {
+        is ScreenState.Success -> {
             AnimatedContent(profileState) {
                 Scaffold(
                     topBar = {
@@ -85,7 +87,7 @@ fun ProfileScreenComposable(
                             EditProfileButtons()
                         }
 
-                        items((profileState as Success).savedPostList) { savedPostItem ->
+                        items((profileState as ScreenState.Success<List<Post>>).data) { savedPostItem ->
                             GridPostItem(savedPostItem)
                         }
                     }
@@ -111,24 +113,25 @@ fun EditProfileButtons() {
                     .width(334.dp)
                     .clip(RoundedCornerShape(10.dp)),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = MaterialTheme.colors.EtGrey2
+                    contentColor = MaterialTheme.colors.onSurface,
+                    backgroundColor = MaterialTheme.colors.secondary
                 ),
                 onClick = {
                 }
             ) {
-                Text(text = "Edit profile")
+                Text(text = stringResource(id = R.string.edit_profile))
             }
             Box(
                 modifier = Modifier
                     .height(36.dp)
                     .width(36.dp)
                     .clip(RoundedCornerShape(2.dp))
-                    .background(MaterialTheme.colors.EtGrey2)
+                    .background(MaterialTheme.colors.secondary)
                     .clickable(interactionSource = MutableInteractionSource(), indication = null) {
                     },
                 contentAlignment = Alignment.Center
             ) {
-                Image(modifier = Modifier.size(18.dp), painter = painterResource(id = drawable.ic_person_plus), contentDescription = "")
+                Icon(modifier = Modifier.size(18.dp), painter = painterResource(id = drawable.ic_person_plus), contentDescription = stringResource(id = R.string.plus_person_icon))
             }
         }
         Box(
@@ -137,10 +140,10 @@ fun EditProfileButtons() {
                 .fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            Image(
+            Icon(
                 modifier = Modifier.size(24.dp),
                 painter = painterResource(id = drawable.ic_post_grid_staggered),
-                contentDescription = ""
+                contentDescription = stringResource(id = R.string.grid_Icon)
             )
         }
     }
@@ -150,7 +153,7 @@ fun EditProfileButtons() {
 fun ProfileDetailSection() {
     Column(
         modifier = Modifier
-            .padding(horizontal = 12.dp)
+            .padding(horizontal = 12.dp, vertical = 8.dp)
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
@@ -166,26 +169,26 @@ fun ProfileDetailSection() {
                 contentScale = ContentScale.Crop,
                 placeholder = painterResource(id = drawable.bg_placeholder),
                 model = "https://images.pexels.com/photos/14072809/pexels-photo-14072809.jpeg",
-                contentDescription = "profile image"
+                contentDescription = stringResource(id = string.profile_image)
             )
             ProfileDetailItem(
                 modifier = Modifier.weight(1f),
                 count = "12",
-                itemType = "Posts"
+                itemType = stringResource(id = R.string.posts)
             )
             ProfileDetailItem(
                 modifier = Modifier.weight(1f),
                 count = "273",
-                itemType = "Followers"
+                itemType = stringResource(id = R.string.followers)
             )
             ProfileDetailItem(
                 modifier = Modifier.weight(1f),
                 count = "543",
-                itemType = "Following"
+                itemType = stringResource(id = R.string.following)
             )
         }
-        Text("Full Name text here", fontWeight = FontWeight.Bold)
-        Text("Sample Bio text")
+        Text(stringResource(id = R.string.sample_username), fontWeight = FontWeight.Bold)
+        Text(stringResource(id = R.string.sample_bio))
     }
 }
 

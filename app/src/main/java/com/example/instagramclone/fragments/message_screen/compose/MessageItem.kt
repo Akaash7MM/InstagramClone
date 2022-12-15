@@ -19,17 +19,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.domain.entities.Message
+import com.example.instagramclone.R
 import com.example.instagramclone.R.drawable
+import com.example.instagramclone.R.string
 
 @Composable
 fun MessageItem(messageItem: Message) {
     Row(
         modifier = Modifier
-            .height(74.dp)
-            .padding(horizontal = 12.dp)
+            .padding(horizontal = 12.dp, vertical = 4.dp)
+            .height(72.dp)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
@@ -40,18 +43,18 @@ fun MessageItem(messageItem: Message) {
             ) {
                 Image(
                     modifier = Modifier
-                        .size(64.dp),
+                        .size(72.dp),
                     painter = painterResource(id = drawable.ic_story_border_rainbow),
-                    contentDescription = "story border"
+                    contentDescription = stringResource(id = string.story_border_icon)
                 )
                 AsyncImage(
                     modifier = Modifier
-                        .size(54.dp)
+                        .size(60.dp)
                         .clip(CircleShape),
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(id = drawable.bg_placeholder),
                     model = "https://picsum.photos/id/${messageItem.id + 10}/500/500",
-                    contentDescription = "profile image"
+                    contentDescription = stringResource(id = R.string.profile_image)
                 )
             }
             Column(
@@ -69,7 +72,7 @@ fun MessageItem(messageItem: Message) {
             modifier = Modifier
                 .size(22.dp),
             painter = painterResource(id = drawable.ic_camera_outline),
-            contentDescription = "camera outline"
+            contentDescription = stringResource(id = R.string.camera_outline)
         )
     }
 }

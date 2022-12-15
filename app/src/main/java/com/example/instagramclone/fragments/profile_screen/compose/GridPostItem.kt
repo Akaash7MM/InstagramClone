@@ -7,10 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.domain.entities.Post
 import com.example.instagramclone.R.drawable
+import com.example.instagramclone.R.string
 
 @Composable
 fun GridPostItem(savedPostItem: Post) {
@@ -22,6 +24,6 @@ fun GridPostItem(savedPostItem: Post) {
         contentScale = ContentScale.Crop,
         placeholder = painterResource(id = drawable.bg_placeholder),
         model = savedPostItem.imgUrlOriginal,
-        contentDescription = "profile image"
+        contentDescription = stringResource(id = string.profile_image)
     )
 }

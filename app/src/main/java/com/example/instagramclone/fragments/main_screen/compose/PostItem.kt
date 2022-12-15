@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -37,7 +38,10 @@ import androidx.compose.ui.unit.dp
 import androidx.media3.exoplayer.ExoPlayer
 import coil.compose.AsyncImage
 import com.example.domain.entities.Post
+import com.example.instagramclone.R
 import com.example.instagramclone.R.drawable
+import com.example.instagramclone.R.string
+
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
 fun PostItem(
@@ -48,8 +52,7 @@ fun PostItem(
     isVisible: Boolean
 ) {
     Surface(
-        modifier = modifier.fillMaxSize(),
-        color = Color.White
+        modifier = modifier.fillMaxSize()
     ) {
         Column(
             modifier = Modifier
@@ -60,13 +63,13 @@ fun PostItem(
             PostBottomBar(savePost = { savePost() })
             Text(
                 modifier = modifier
-                    .padding(horizontal = 15.dp),
-                text = "2,426" + " likes",
+                    .padding(horizontal = 16.dp),
+                text = stringResource(id = string.likes_count_text) + " " + stringResource(id = string.likes_text),
                 fontWeight = FontWeight.Bold
             )
             Text(
                 modifier = modifier
-                    .padding(horizontal = 15.dp),
+                    .padding(horizontal = 16.dp),
                 text = buildAnnotatedString {
                     withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
                         append(postItem.userName)
@@ -77,14 +80,14 @@ fun PostItem(
             )
             Text(
                 modifier = modifier
-                    .padding(horizontal = 15.dp),
-                text = "View all 83 comments",
+                    .padding(horizontal = 16.dp),
+                text = stringResource(id = R.string.view_comments_sample),
                 style = TextStyle(color = Color.Gray)
             )
             Text(
                 modifier = modifier
-                    .padding(horizontal = 15.dp),
-                text = "4 Hours ago",
+                    .padding(horizontal = 16.dp),
+                text = stringResource(id = R.string.post_time_sample),
                 style = TextStyle(color = Color.Gray)
             )
         }
@@ -103,7 +106,7 @@ fun PostBottomBar(savePost: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp),
+            .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -155,11 +158,9 @@ fun BottomBarIcon(
     Icon(
         modifier = modifier
             .padding(horizontal = 8.dp)
-            .clickable(interactionSource = MutableInteractionSource(), indication = null) {
-                onClick()
-            },
+            .clickable(interactionSource = MutableInteractionSource(), indication = null, onClick = onClick),
         painter = painter,
-        contentDescription = "BottomBarIcon"
+        contentDescription = stringResource(id = string.bottombar_icon)
 
     )
 }
@@ -169,7 +170,7 @@ fun PostTopbar(postItem: Post, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 10.dp),
+            .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -177,18 +178,18 @@ fun PostTopbar(postItem: Post, modifier: Modifier = Modifier) {
             Box(
                 modifier = Modifier
                     .wrapContentSize()
-                    .padding(horizontal = 10.dp),
+                    .padding(horizontal = 8.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
                     modifier = Modifier
-                        .size(35.dp),
+                        .size(36.dp),
                     painter = painterResource(id = drawable.ic_story_border_rainbow),
-                    contentDescription = "story border"
+                    contentDescription = stringResource(id = string.story_border_icon)
                 )
                 AsyncImage(
                     modifier = Modifier
-                        .size(30.dp)
+                        .size(32.dp)
                         .clip(CircleShape),
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(id = drawable.bg_placeholder),
@@ -197,7 +198,7 @@ fun PostTopbar(postItem: Post, modifier: Modifier = Modifier) {
                     } else {
                         postItem.imgUrlNormal
                     },
-                    contentDescription = "profile image"
+                    contentDescription = stringResource(id = string.profile_image)
                 )
             }
             Text(
@@ -209,7 +210,7 @@ fun PostTopbar(postItem: Post, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .size(20.dp),
             painter = painterResource(id = drawable.ic_vertical_ellipsis),
-            contentDescription = "vertical ellipsis"
+            contentDescription = stringResource(id = string.vertical_ellipsis)
         )
     }
 }

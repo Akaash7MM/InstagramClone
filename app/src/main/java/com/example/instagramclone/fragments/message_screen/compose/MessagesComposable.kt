@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,12 +30,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.domain.entities.Message
+import com.example.instagramclone.R
 import com.example.instagramclone.R.drawable
-import com.example.instagramclone.fragments.compose.components.GreyTextField
-import com.example.instagramclone.fragments.message_screen.MessageScreenState.Success
+import com.example.instagramclone.R.string
+import com.example.instagramclone.fragments.compose.components.CustomTextField
 import com.example.instagramclone.fragments.message_screen.MessageViewModel
-import com.example.instagramclone.fragments.ui.theme.EtGrey2
 import com.example.instagramclone.fragments.ui.theme.FBlue
+import com.example.instagramclone.util.ScreenState.Success
 
 @OptIn(ExperimentalLifecycleComposeApi::class, ExperimentalAnimationApi::class)
 @Composable
@@ -52,7 +54,7 @@ fun MessagesComposable(
                 is Success -> {
                     MessageScreen(
                         modifier = Modifier.padding(it),
-                        messageList = dataState.messageList
+                        messageList = dataState.data
 
                     )
                 }
@@ -80,13 +82,13 @@ fun MessageScreen(modifier: Modifier = Modifier, messageList: List<Message>) {
 
 @Composable
 fun MesssageUtilSection() {
-    GreyTextField(
+    CustomTextField(
         modifier = Modifier
             .padding(12.dp)
             .fillMaxWidth(),
-        text = "",
+        text = { "" },
         hintText = "Search",
-        backgroundColor = MaterialTheme.colors.EtGrey2,
+        backgroundColor = MaterialTheme.colors.secondary,
         onValueChange = {
         }
     )
@@ -98,12 +100,12 @@ fun MesssageUtilSection() {
         contentScale = ContentScale.Crop,
         placeholder = painterResource(id = drawable.bg_placeholder),
         model = "https://picsum.photos/id/${19}/500/500",
-        contentDescription = "profile image"
+        contentDescription = stringResource(id = string.profile_image)
     )
     Text(
         modifier = Modifier
             .padding(horizontal = 32.dp),
-        text = "Your Note"
+        text = stringResource(id = R.string.your_note_text)
     )
     Row(
         modifier = Modifier
@@ -112,13 +114,13 @@ fun MesssageUtilSection() {
     ) {
         Text(
             modifier = Modifier.padding(all = 12.dp),
-            text = "Messages",
+            text = stringResource(id = R.string.messages_text),
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp
         )
         Text(
             modifier = Modifier.padding(all = 12.dp),
-            text = "Requests",
+            text = stringResource(id = R.string.requests_text),
             fontSize = 16.sp,
             color = MaterialTheme.colors.FBlue
         )

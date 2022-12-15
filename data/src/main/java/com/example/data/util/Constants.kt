@@ -4,4 +4,6 @@ object Constants {
 
     const val BASE_URL = "https://api.pexels.com/"
     const val API_KEY = "563492ad6f9170000100000173812e582f6f491393726c7a655ea3a0"
+    const val USERS_URL = "https://jsonplaceholder.typicode.com/users"
+    const val sample_video_desc = "This is a Video"
 }

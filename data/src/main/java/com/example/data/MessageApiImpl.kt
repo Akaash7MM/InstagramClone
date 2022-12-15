@@ -2,6 +2,7 @@ package com.example.data
 
 import com.example.data.remote.MessageApi
 import com.example.data.remote.dto.MessagesDTOItem
+import com.example.data.util.Constants.USERS_URL
 import com.example.domain.util.Resource
 import com.example.domain.util.safeResult
 import io.ktor.client.HttpClient
@@ -13,7 +14,7 @@ class MessageApiImpl(
 ) : MessageApi {
     override suspend fun getMessages(): Resource<List<MessagesDTOItem>> {
         return safeResult {
-            client.get("https://jsonplaceholder.typicode.com/users")
+            client.get(USERS_URL)
                 .body()
         }
     }
