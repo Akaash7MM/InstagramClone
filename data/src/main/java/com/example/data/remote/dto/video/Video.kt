@@ -1,6 +1,7 @@
 package com.example.data.remote.dto.video
 
 import com.example.data.local.entities.PostEntity
+import com.example.data.util.Constants.sample_video_desc
 import com.example.domain.entities.Post
 
 data class Video(
@@ -26,7 +27,7 @@ fun Video.toPost(): Post {
         videoUrlSD = video_files.get(1).link,
         videoImg = image,
         videoPreview = video_pictures.first().picture,
-        contentDesc = "This is a video",
+        contentDesc = sample_video_desc
     )
 }
 fun Video.toPostEntity(): PostEntity {
@@ -36,12 +37,14 @@ fun Video.toPostEntity(): PostEntity {
         userName = user.name,
         videoUrlHD = video_files.first().link,
         videoUrlSD = video_files.get(1).link,
-        contentDesc = "This is a video",
-        imgUrlNormal = "",
+        contentDesc = sample_video_desc,
+        imgUrlNormal = image,
         imgUrlsmall = image,
-        imgUrlOriginal = "",
+        imgUrlOriginal = image,
         videoImg = image,
-        videoPreview = video_pictures.first().picture
+        videoPreview = video_pictures.first().picture,
+        photoWidth = 0,
+        photoHeight = 0
 
     )
 }

@@ -12,5 +12,7 @@ data class Post(
     val videoUrlHD: String = "",
     val videoUrlSD: String = "",
     val videoImg: String = "",
-    val videoPreview: String = ""
+    val videoPreview: String = "",
+    val photoHeight: Int = 1,
+    val photoWidth: Int = 1
 )

@@ -1,17 +1,33 @@
 buildscript {
+    ext{
+        ktx_core_version = '1.9.0'
+        compose_ui_version = '1.3.1'
+        compose_nav_version =  '2.5.3'
+        ktor_version = "2.1.3"
+        room_version = "2.4.3"
+        media3_version = "1.0.0-beta03"
+        ktx_core_version = '1.9.0'
+        lifecycle_runtime_ktx_version = '2.5.1'
+        compose_activity_version = '1.6.1'
+        dagger_hilt_version = '2.44'
+        hilt_navigation_compose_version = '1.0.0'
+        lifecycle_runtime_compose_version = '2.6.0-alpha03'
+        coil_version = '2.2.2'
+        material_version = '1.7.0'
+        retrofit_version = '2.9.0'
+        datastore_version = '1.0.0'
+        firebase_firestore_version = '24.4.1'
+        firebase_auth_version = '21.1.0'
+        compose_kotlin_compiler_version = '1.3.1'
+    }
     repositories {
         mavenCentral()
     }
     dependencies {
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.44'
-        classpath 'com.google.gms:google-services:4.3.14'
-
-        def nav_version = "2.5.3"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10"
-
         classpath 'com.google.gms:google-services:4.3.14'
-
+        classpath "org.jetbrains.kotlin:kotlin-serialization:1.7.10"
     }
 }
 plugins {

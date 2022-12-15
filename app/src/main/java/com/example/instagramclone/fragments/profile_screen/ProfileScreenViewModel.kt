@@ -2,8 +2,10 @@ package com.example.instagramclone.fragments.profile_screen
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.domain.entities.Post
 import com.example.domain.usecases.GetSavedPostsUseCase
 import com.example.domain.util.Resource
+import com.example.instagramclone.util.ScreenState
 import com.example.instagramclone.util.ioScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +17,7 @@ class ProfileScreenViewModel @Inject constructor(
     private val getSavedPostsUseCase: GetSavedPostsUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<ProfileScreenState>(ProfileScreenState.Empty)
+    private val _uiState: MutableStateFlow<ScreenState<List<Post>>> = MutableStateFlow(ScreenState.Empty)
     val uiState = _uiState.asStateFlow()
 
     init {
@@ -23,18 +25,18 @@ class ProfileScreenViewModel @Inject constructor(
     }
 
     fun getSavedPosts() {
-        _uiState.value = ProfileScreenState.Loading
+        _uiState.value = ScreenState.Loading
         ioScope {
             val result = getSavedPostsUseCase()
             when (result) {
                 is Resource.Success -> {
                     result.data.collect { savedPostList ->
-                        _uiState.value = ProfileScreenState.Success(savedPostList)
+                        _uiState.value = ScreenState.Success(savedPostList)
                     }
                 }
                 is Resource.Failure -> {
                     Log.d("ProfileScreen", result.throwable.toString())
-                    _uiState.value = ProfileScreenState.Failure(result.throwable)
+                    _uiState.value = ScreenState.Failure(result.throwable)
                 }
             }
         }
