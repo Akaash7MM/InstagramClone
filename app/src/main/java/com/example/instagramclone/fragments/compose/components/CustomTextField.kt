@@ -19,22 +19,20 @@ import androidx.compose.ui.unit.sp
 import com.example.instagramclone.fragments.ui.theme.EtGrey2
 
 @Composable
-fun GreyTextField(
+fun CustomTextField(
     modifier: Modifier = Modifier,
-    text: String,
+    text: () -> String,
     hintText: String,
     backgroundColor: Color,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit
 ) {
     OutlinedTextField(
-        modifier = modifier.width(338.dp)
+        modifier = modifier.width(336.dp)
             .height(48.dp),
-        value = text,
-        onValueChange = {
-            onValueChange(it)
-        },
-        shape = RoundedCornerShape(5.dp),
+        value = text(),
+        onValueChange = onValueChange,
+        shape = RoundedCornerShape(4.dp),
         visualTransformation = visualTransformation,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         placeholder = {
@@ -42,9 +40,9 @@ fun GreyTextField(
         },
         textStyle = TextStyle(fontSize = 14.sp),
         colors = TextFieldDefaults.textFieldColors(
-            focusedIndicatorColor = MaterialTheme.colors.EtGrey2,
-            disabledIndicatorColor = MaterialTheme.colors.EtGrey2,
-            unfocusedIndicatorColor = MaterialTheme.colors.EtGrey2,
+            focusedIndicatorColor = MaterialTheme.colors.secondaryVariant,
+            disabledIndicatorColor = MaterialTheme.colors.secondaryVariant,
+            unfocusedIndicatorColor = MaterialTheme.colors.secondaryVariant,
             backgroundColor = backgroundColor
         )
     )
