@@ -19,7 +19,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.instagramclone.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -65,9 +65,13 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
     implementation "androidx.compose.material:material:$compose_ui_version"
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+    implementation 'androidx.test:runner:1.4.0'
+    debugImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
+    androidTestImplementation "androidx.compose.ui:ui-test:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     implementation "androidx.navigation:navigation-compose:$compose_nav_version"
 
     implementation "com.google.dagger:hilt-android:$dagger_hilt_version"
@@ -75,5 +79,9 @@ dependencies {
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_compose_version"
 
     implementation "io.coil-kt:coil-compose:$coil_version"
+    debugImplementation "androidx.navigation:navigation-testing:$compose_nav_version"
+
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.44.2'
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.44.2'
 
 }

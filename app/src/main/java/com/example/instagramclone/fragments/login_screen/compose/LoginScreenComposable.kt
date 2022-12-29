@@ -147,3 +147,96 @@ fun ClickableText(modifier: Modifier = Modifier, text: String, color: Color = Co
         modifier = modifier.clickable(interactionSource = MutableInteractionSource(), indication = null, onClick = onClick)
     )
 }
+@Composable
+fun TestLoginScreenComposable(
+    navController: NavHostController) {
+    val username = remember {
+        mutableStateOf("")
+    }
+    val password = remember {
+        mutableStateOf("")
+    }
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .size(224.dp),
+                    painter = painterResource(id = drawable.ic_instagram_logo),
+                    contentDescription = stringResource(id = string.instagram_logo)
+                )
+
+                CustomTextField(
+                    text = {
+                        username.value
+                    },
+                    hintText = stringResource(id = R.string.username_hint),
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    onValueChange = {
+                        username.value = it
+                    }
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                CustomTextField(
+                    text = {
+                        password.value
+                    },
+                    hintText = stringResource(id = R.string.password_hint),
+                    visualTransformation = PasswordVisualTransformation(),
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    onValueChange = {
+                        password.value = it
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+                Button(
+                    modifier = Modifier
+                        .height(48.dp)
+                        .width(338.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = MaterialTheme.colors.FBlue,
+                        disabledBackgroundColor = MaterialTheme.colors.FBlue2
+                    ),
+                    enabled = username.value.isNotBlank() && password.value.isNotBlank(),
+                    onClick = {
+//                        loginViewModel.loginUser(username.value, password.value)
+                    }
+                ) {
+                    Text(text = stringResource(id = string.login_text), color = Color.White)
+                }
+                ClickableText(
+                    modifier = Modifier
+                        .padding(12.dp),
+                    text = stringResource(id = R.string.forgot_details_text),
+                    fontSize = 12.sp
+                ) {
+                }
+            }
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(2.dp)
+                        .background(MaterialTheme.colors.EtGrey2)
+                )
+                ClickableText(
+                    modifier = Modifier.padding(12.dp),
+                    text = stringResource(id = R.string.sign_up_no_account_text),
+                    fontSize = 12.sp
+                ) {
+                    navController.navigate(Screen.SignUp.route)
+                }
+            }
+        }
+    }
+}
+

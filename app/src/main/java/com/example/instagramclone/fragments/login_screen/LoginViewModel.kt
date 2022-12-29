@@ -26,7 +26,6 @@ class LoginViewModel @Inject constructor(
     private val getFetchDetailsUseCase: GetFetchDetailsUseCase,
     private val getCreateUserUseCase: GetCreateUserUseCase,
     private val getLoginUserUseCase: GetLoginUserUseCase
-
 ) : ViewModel() {
 
     val userToken: MutableStateFlow<String> = MutableStateFlow("")
