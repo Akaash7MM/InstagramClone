@@ -37,7 +37,6 @@ import com.example.instagramclone.R.drawable
 import com.example.instagramclone.R.string
 import com.example.instagramclone.fragments.compose.components.CustomTextField
 import com.example.instagramclone.fragments.login_screen.LoginViewModel
-import com.example.instagramclone.fragments.ui.theme.EtGrey
 import com.example.instagramclone.fragments.ui.theme.EtGrey2
 import com.example.instagramclone.fragments.ui.theme.FBlue
 import com.example.instagramclone.fragments.ui.theme.FBlue2
@@ -147,9 +146,11 @@ fun ClickableText(modifier: Modifier = Modifier, text: String, color: Color = Co
         modifier = modifier.clickable(interactionSource = MutableInteractionSource(), indication = null, onClick = onClick)
     )
 }
+
 @Composable
 fun TestLoginScreenComposable(
-    navController: NavHostController) {
+    navController: NavHostController
+) {
     val username = remember {
         mutableStateOf("")
     }
@@ -239,4 +240,3 @@ fun TestLoginScreenComposable(
         }
     }
 }
-

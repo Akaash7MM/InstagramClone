@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 
-class AuthRepositoryImpl(
+public class AuthRepositoryImpl(
     val dataStore: DataStore<Preferences>,
     val firebaseAuth: FirebaseAuth
 ) : AuthRepository {
