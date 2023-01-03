@@ -8,8 +8,6 @@ import androidx.compose.ui.test.performTextInput
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import com.example.data.repository.AuthRepositoryImpl
-import com.example.data.repository.FakeAuthRepository
-import com.example.domain.repository.AuthRepository
 import com.example.domain.usecases.GetCreateUserUseCase
 import com.example.domain.usecases.GetFetchDetailsUseCase
 import com.example.domain.usecases.GetLoginUserUseCase
@@ -19,14 +17,11 @@ import com.example.instagramclone.fragments.login_screen.compose.LoginScreenComp
 import com.example.instagramclone.fragments.login_screen.compose.TestLoginScreenComposable
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import io.mockk.MockKAnnotations
+import io.mockk.impl.annotations.MockK
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
-import org.mockito.Spy
 
 @HiltAndroidTest
 class LoginScreenComposableTest {
@@ -35,28 +30,16 @@ class LoginScreenComposableTest {
     @get:Rule
     var hiltTestRule = HiltAndroidRule(this)
 
-//    @Inject
-//    lateinit var getLoginUserUseCase: GetLoginUserUseCase
-//
-//    @Inject
-//    lateinit var getCreateUserUseCase: GetCreateUserUseCase
-//
-//    @Inject
-//    lateinit var getFetchDetailsUseCase: GetFetchDetailsUseCase
-//
-//    @Inject
-//    lateinit var getSaveDetailsUseCase: GetSaveDetailsUseCase
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    @Mock lateinit var testAuthRepository: AuthRepositoryImpl
+    @MockK lateinit var testAuthRepository: AuthRepositoryImpl
     lateinit var loginViewModel: LoginViewModel
 
     @Before
     fun setUp() {
         hiltTestRule.inject()
-        MockitoAnnotations.openMocks(this)
+        MockKAnnotations.init(this)
         loginViewModel = LoginViewModel(
             getLoginUserUseCase = GetLoginUserUseCase(testAuthRepository),
             getFetchDetailsUseCase = GetFetchDetailsUseCase(testAuthRepository),

@@ -19,6 +19,7 @@ buildscript {
         firebase_firestore_version = '24.4.1'
         firebase_auth_version = '21.1.0'
         compose_kotlin_compiler_version = '1.3.1'
+        mockkVersion = '1.13.3'
     }
     repositories {
         mavenCentral()
