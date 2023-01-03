@@ -149,3 +149,114 @@ fun SignUpComposable(
         }
     }
 }
+
+@Composable
+fun TestSignUpComposable(
+    navController: NavHostController
+) {
+    val email = remember {
+        mutableStateOf("")
+    }
+    val fullName = remember {
+        mutableStateOf("")
+    }
+    val username = remember {
+        mutableStateOf("")
+    }
+    val password = remember {
+        mutableStateOf("")
+    }
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            Icon(
+                modifier = Modifier
+                    .width(224.dp)
+                    .height(112.dp),
+                painter = painterResource(id = drawable.ic_instagram_logo),
+                contentDescription = stringResource(id = string.instagram_logo)
+            )
+            Text(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(horizontal = 54.dp)
+                    .padding(bottom = 44.dp)
+                    .align(Alignment.CenterHorizontally),
+                color = MaterialTheme.colors.EtGrey2,
+                textAlign = TextAlign.Center,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                text = stringResource(id = string.sign_up_see_friends)
+            )
+
+            CustomTextField(
+                text = {
+                    email.value
+                },
+                hintText = stringResource(id = string.username_hint),
+                backgroundColor = MaterialTheme.colors.secondary,
+                onValueChange = {
+                    email.value = it
+                }
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            CustomTextField(
+                text = {
+                    fullName.value
+                },
+                hintText = stringResource(id = string.fullname_hint),
+                backgroundColor = MaterialTheme.colors.secondary,
+                onValueChange = {
+                    fullName.value = it
+                }
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            CustomTextField(
+                text = {
+                    username.value
+                },
+                hintText = stringResource(id = string.username_only_hint),
+                backgroundColor = MaterialTheme.colors.secondary,
+                onValueChange = {
+                    username.value = it
+                }
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            CustomTextField(
+                text = {
+                    password.value
+                },
+                hintText = stringResource(id = string.password_hint),
+                backgroundColor = MaterialTheme.colors.secondary,
+                onValueChange = {
+                    password.value = it
+                }
+            )
+            Text(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(horizontal = 54.dp, vertical = 18.dp)
+                    .align(Alignment.CenterHorizontally),
+                color = MaterialTheme.colors.EtGrey2,
+                textAlign = TextAlign.Center,
+                text = stringResource(id = string.terms_conditions)
+            )
+            Button(
+                modifier = Modifier.width(338.dp),
+                colors = ButtonDefaults.buttonColors(
+                    disabledBackgroundColor = MaterialTheme.colors.FBlue2,
+                    backgroundColor = MaterialTheme.colors.FBlue
+                ),
+                enabled = email.value.isNotBlank() && password.value.isNotBlank(),
+                onClick = {
+//                    loginViewModel.createUser(email.value, password.value)
+                }
+            ) {
+                Text(text = stringResource(id = string.sign_up_text), color = Color.White)
+            }
+            ClickableText(text = stringResource(id = string.have_an_account_login), color = Color.Gray, fontSize = 12.sp) {
+                navController.navigate(Screen.Login.route)
+            }
+        }
+    }
+}
